@@ -1,0 +1,199 @@
+CREATE TABLE cooks (
+    employee_id    INTEGER NOT NULL,
+    workplace_code VARCHAR2(5) NOT NULL
+);
+
+ALTER TABLE cooks ADD CONSTRAINT cooks_pk PRIMARY KEY ( employee_id );
+
+CREATE TABLE delivery (
+    delivery_id     INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL,
+    delivery_number INTEGER NOT NULL,
+    product_id      INTEGER NOT NULL,
+    quantity        NUMBER(6) NOT NULL,
+    unit_code       VARCHAR2(3) NOT NULL,
+    product_price   NUMBER(7) NOT NULL,
+    vat             NUMBER(2),
+    supplier_id     INTEGER NOT NULL,
+    invoice_number  VARCHAR2(20)
+);
+
+ALTER TABLE delivery ADD CONSTRAINT delivery_pk PRIMARY KEY ( delivery_id );
+
+CREATE TABLE departments (
+    department_code VARCHAR2(5) NOT NULL,
+    department_name VARCHAR2(20) NOT NULL
+);
+
+ALTER TABLE departments ADD CONSTRAINT departments_pk PRIMARY KEY ( department_code );
+
+ALTER TABLE departments ADD CONSTRAINT departments__un UNIQUE ( department_name );
+
+CREATE TABLE employees (
+    employee_id     INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL,
+    first_name      VARCHAR2(20) NOT NULL,
+    last_name       VARCHAR2(30) NOT NULL,
+    pesel           VARCHAR2(11) NOT NULL,
+    department_code VARCHAR2(5) NOT NULL,
+    salary          NUMBER(7),
+    manager_id      INTEGER
+);
+
+ALTER TABLE employees ADD CONSTRAINT employees_pk PRIMARY KEY ( employee_id );
+
+ALTER TABLE employees ADD CONSTRAINT employees__un UNIQUE ( pesel );
+
+CREATE TABLE menu (
+    menu_id    INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL,
+    dish_name  VARCHAR2(20),
+    dish_price NUMBER(5),
+    vat        NUMBER(2)
+);
+
+ALTER TABLE menu ADD CONSTRAINT menu_pk PRIMARY KEY ( menu_id );
+
+ALTER TABLE menu ADD CONSTRAINT menu__un UNIQUE ( dish_name );
+
+CREATE TABLE orders (
+    order_id     INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL,
+    order_number INTEGER NOT NULL,
+    menu_id      INTEGER NOT NULL,
+    employee_id  INTEGER NOT NULL
+);
+
+ALTER TABLE orders ADD CONSTRAINT orders_pk PRIMARY KEY ( order_id );
+
+CREATE TABLE products (
+    product_id   INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL,
+    product_name VARCHAR2(20) NOT NULL
+);
+
+ALTER TABLE products ADD CONSTRAINT products_pk PRIMARY KEY ( product_id );
+
+ALTER TABLE products ADD CONSTRAINT products__un UNIQUE ( product_name );
+
+CREATE TABLE recipes (
+    recipe_id  INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL,
+    menu_id    INTEGER NOT NULL,
+    product_id INTEGER NOT NULL,
+    quantity   NUMBER(4,1) NOT NULL,
+    unit_code  VARCHAR2(3) NOT NULL
+);
+
+ALTER TABLE recipes ADD CONSTRAINT recipes_pk PRIMARY KEY ( recipe_id );
+
+CREATE TABLE suppliers (
+    supplier_id         INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL,
+    supplier_name       VARCHAR2(40) NOT NULL,
+    phone_number        VARCHAR2(15),
+    bank_account_number VARCHAR2(40)
+);
+
+ALTER TABLE suppliers ADD CONSTRAINT suppliers_pk PRIMARY KEY ( supplier_id );
+
+ALTER TABLE suppliers ADD CONSTRAINT suppliers__un UNIQUE ( supplier_name );
+
+CREATE TABLE units (
+    unit_code VARCHAR2(3) NOT NULL,
+    unit_name VARCHAR2(10) NOT NULL
+);
+
+ALTER TABLE units ADD CONSTRAINT units_pk PRIMARY KEY ( unit_code );
+
+ALTER TABLE units ADD CONSTRAINT units__un UNIQUE ( unit_name );
+
+CREATE TABLE waiters (
+    waiter_id   INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL,
+    employee_id INTEGER NOT NULL,
+    date_work   DATE,
+    profit      NUMBER(7)
+);
+
+ALTER TABLE waiters ADD CONSTRAINT waiters_pk PRIMARY KEY ( waiter_id );
+
+CREATE TABLE warehouse (
+    product_id INTEGER NOT NULL,
+    quantity   NUMBER(7) NOT NULL,
+    unit_code  VARCHAR2(3) NOT NULL
+);
+
+ALTER TABLE warehouse ADD CONSTRAINT warehouse_pk PRIMARY KEY ( product_id );
+
+CREATE TABLE workplace (
+    workplace_code VARCHAR2(5) NOT NULL,
+    workplace_name VARCHAR2(20) NOT NULL
+);
+
+ALTER TABLE workplace ADD CONSTRAINT workplace_pk PRIMARY KEY ( workplace_code );
+
+ALTER TABLE workplace ADD CONSTRAINT workplace__un UNIQUE ( workplace_name );
+
+CREATE TABLE workplace_menu (
+    menu_id        INTEGER NOT NULL,
+    workplace_code VARCHAR2(5) NOT NULL
+);
+
+ALTER TABLE workplace_menu ADD CONSTRAINT workplace_menu_pk PRIMARY KEY ( menu_id );
+
+ALTER TABLE cooks
+    ADD CONSTRAINT cooks_employees_fk FOREIGN KEY ( employee_id )
+        REFERENCES employees ( employee_id );
+
+ALTER TABLE cooks
+    ADD CONSTRAINT cooks_workplace_fk FOREIGN KEY ( workplace_code )
+        REFERENCES workplace ( workplace_code );
+
+ALTER TABLE delivery
+    ADD CONSTRAINT delivery_products_fk FOREIGN KEY ( product_id )
+        REFERENCES products ( product_id );
+
+ALTER TABLE delivery
+    ADD CONSTRAINT delivery_suppliers_fk FOREIGN KEY ( supplier_id )
+        REFERENCES suppliers ( supplier_id );
+
+ALTER TABLE delivery
+    ADD CONSTRAINT delivery_units_fk FOREIGN KEY ( unit_code )
+        REFERENCES units ( unit_code );
+
+ALTER TABLE employees
+    ADD CONSTRAINT employees_departments_fk FOREIGN KEY ( department_code )
+        REFERENCES departments ( department_code );
+
+ALTER TABLE employees
+    ADD CONSTRAINT employees_employees_fk FOREIGN KEY ( manager_id )
+        REFERENCES employees ( employee_id );
+
+ALTER TABLE orders
+    ADD CONSTRAINT orders_employees_fk FOREIGN KEY ( employee_id )
+        REFERENCES employees ( employee_id );
+
+ALTER TABLE orders
+    ADD CONSTRAINT orders_menu_fk FOREIGN KEY ( menu_id )
+        REFERENCES menu ( menu_id );
+
+ALTER TABLE recipes
+    ADD CONSTRAINT recipes_menu_fk FOREIGN KEY ( menu_id )
+        REFERENCES menu ( menu_id );
+
+ALTER TABLE recipes
+    ADD CONSTRAINT recipes_products_fk FOREIGN KEY ( product_id )
+        REFERENCES products ( product_id );
+
+ALTER TABLE recipes
+    ADD CONSTRAINT recipes_units_fk FOREIGN KEY ( unit_code )
+        REFERENCES units ( unit_code );
+
+ALTER TABLE waiters
+    ADD CONSTRAINT waiters_employees_fk FOREIGN KEY ( employee_id )
+        REFERENCES employees ( employee_id );
+
+ALTER TABLE warehouse
+    ADD CONSTRAINT warehouse_units_fk FOREIGN KEY ( unit_code )
+        REFERENCES units ( unit_code );
+
+ALTER TABLE workplace_menu
+    ADD CONSTRAINT workplace_menu_menu_fk FOREIGN KEY ( menu_id )
+        REFERENCES menu ( menu_id );
+
+ALTER TABLE workplace_menu
+    ADD CONSTRAINT workplace_menu_workplace_fk FOREIGN KEY ( workplace_code )
+        REFERENCES workplace ( workplace_code );
