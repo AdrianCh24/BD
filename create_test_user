@@ -1,0 +1,15 @@
+--tworzenie użydkowika na którym testuje kod i nadanie mu uprawnień polecenia wykonuje będąc zalogowanym na użydkownika system
+
+create user restaurant_test identified by 123;
+
+GRANT CREATE SESSION TO restaurant_test;
+GRANT UNLIMITED TABLESPACE TO restaurant_test;
+GRANT CREATE TABLE TO restaurant_test;
+GRANT CREATE SEQUENCE TO restaurant_test;
+GRANT CREATE VIEW TO restaurant_test;
+GRANT CREATE TYPE TO restaurant_test;
+GRANT CREATE PROCEDURE TO restaurant_test;
+GRANT CREATE TRIGGER TO restaurant_test;
+GRANT ADMINISTER DATABASE TRIGGER TO restaurant_test;
+GRANT EXECUTE ON DBMS_SCHEDULER TO restaurant_test;
+GRANT CREATE JOB TO restaurant_test;
