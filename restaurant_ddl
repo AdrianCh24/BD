@@ -1,3 +1,6 @@
+--obiekty w bazie zaprojektowane i wygenerowane dzięki sql modeler
+--ze swojej strony dodałem polecenia generated always as identity w kolumnach będących PK
+
 CREATE TABLE cooks (
     employee_id    INTEGER NOT NULL,
     workplace_code VARCHAR2(5) NOT NULL
