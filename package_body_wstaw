@@ -1,0 +1,68 @@
+--body paczki która ma usprawnić wstawianie rekordów do tabel
+
+create or replace package body wstaw
+is
+  procedure produkt(in_prod_name products.product_name%type)
+  is
+  begin
+    insert into products(product_name)
+    values (in_prod_name);
+    tekst('wstawiono produkt: '||in_prod_name);
+  end produkt;
+
+  procedure dostawca(in_supp_name suppliers.supplier_name%type, in_phon_numb suppliers.phone_number%type default null, in_bank_numb suppliers.bank_account_number%type default null)
+  is
+  begin
+    insert into suppliers(supplier_name, phone_number, bank_account_number)
+    values (in_supp_name, in_phon_numb, in_bank_numb);
+    tekst('wstawiono dostawcę: '||in_supp_name||' z nr. tel '||in_phon_numb||' i nr. konta: '||in_bank_numb);
+  end dostawca;
+  
+  procedure pozycja_menu(in_dish_name menu.dish_name%type, in_dish_price menu.dish_price%type, in_vat menu.vat%type)
+  is
+  begin
+    insert into menu(dish_name, dish_price, vat)
+    values (in_dish_name, in_dish_price, in_vat);
+    tekst('wstawiono nowa pozycję menu: '||in_dish_name||' w cenie: '||in_dish_price||' z vatem: '||in_vat||'%');
+  end pozycja_menu;
+  
+  function f_prod_id (in_prod_name products.product_name%type) return number
+  is
+    v_prod_id products.product_id%type;
+  begin
+    select product_id
+    into v_prod_id
+    from products
+    where product_name = in_prod_name;
+
+    return v_prod_id;
+  end f_prod_id;
+  
+  function f_menu_id (in_dish_name menu.dish_name%type) return number
+  is
+    v_menu_id menu.menu_id%type;
+  begin
+    select menu_id
+    into v_menu_id
+    from menu
+    where dish_name = in_dish_name;
+    
+    return v_menu_id;
+  end f_menu_id;
+  
+  procedure receptura ( in_dish_name menu.dish_name%type, 
+                        in_prod_name products.product_name%type, 
+                        in_quan recipes.quantity%type, 
+                        in_unit recipes.unit_code%type)
+  is
+    v_menu_id menu.menu_id%type;
+    v_product_id products.product_id%type;
+  begin
+    v_menu_id := f_menu_id(in_dish_name);
+    v_product_id := f_prod_id(in_prod_name);
+    
+    insert into recipes (menu_id, product_id, quantity, unit_code)
+    values (v_menu_id, v_product_id, in_quan, in_unit);
+    tekst('wstawiono recepture na '||in_dish_name||' składajaca się z '||in_prod_name||' w ilości '||in_quan||in_unit);
+  end receptura;
+end;
