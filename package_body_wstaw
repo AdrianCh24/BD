@@ -1,8 +1,19 @@
 --body paczki która ma usprawnić wstawianie rekordów do tabel
 
---wstawianie produktów
 create or replace package body wstaw
 is
+--krótki opis jak wywołać program
+  procedure pomoc
+  is
+  begin
+    tekst('Witamy w pomocy dla paczki wstaw. Żeby wstawić do bazy nowy:');
+    tekst('-produkt wstaw.produkt (nazwa produktu)');
+    tekst('-dostawca wstaw.dostawca (nazwa dostawcy, nr.tel, nr.konta)');
+    tekst('-menu wstaw.pozycja_menu (nazwa poz. menu, cena, vat)');
+    tekst('-recepture wstaw.receptura (nazwa dania, nazwa produktu, ilość, g/ml/szt.)następny produkt bez nazwy dania');
+  end;
+
+--wstawianie produktów
   procedure produkt(in_prod_name products.product_name%type)
   is
   begin
