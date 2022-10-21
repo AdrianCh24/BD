@@ -274,7 +274,8 @@ is
   exception
     when no_data_found then null;
   end receptura;
-  
+
+--funkcja zwracająca kod departamentu jeśli poda się nazwę departamentu potrzebna przy procedurze wstawiającej nowego pracownika
   function f_dep_code (in_dep_name departments.department_name%type) return varchar2
   is
     v_dep_code departments.department_code%type;
@@ -286,7 +287,8 @@ is
   
     return v_dep_code;
   end f_dep_code;
-  
+
+--funkcja zwracająca id pracownika jeśli podamy jego imię i nazwisko potrzebna przy prodedurze wstawiającej nowego pracownika
   function f_man_id (in_first employees.first_name%type, in_last employees.last_name%type) return number
   is
     v_man_id employees.employee_id%type;
@@ -298,7 +300,8 @@ is
   
     return v_man_id;
   end f_man_id;
-  
+
+--procedura wstawiająca nowego pracownika korzystająca z 2 powyższych funkcji
   procedure pracownik ( in_first employees.first_name%type, 
                                         in_last employees.last_name%type, 
                                         in_pesel employees.pesel%type, 
