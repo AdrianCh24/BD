@@ -1,5 +1,6 @@
 --body paczki która ma usprawnić wstawianie rekordów do tabel
 
+--wstawianie produktów
 create or replace package body wstaw
 is
   procedure produkt(in_prod_name products.product_name%type)
@@ -10,6 +11,7 @@ is
     tekst('wstawiono produkt: '||in_prod_name);
   end produkt;
 
+--wstawianie dostawców
   procedure dostawca(in_supp_name suppliers.supplier_name%type, in_phon_numb suppliers.phone_number%type default null, in_bank_numb suppliers.bank_account_number%type default null)
   is
   begin
@@ -17,7 +19,8 @@ is
     values (in_supp_name, in_phon_numb, in_bank_numb);
     tekst('wstawiono dostawcę: '||in_supp_name||' z nr. tel '||in_phon_numb||' i nr. konta: '||in_bank_numb);
   end dostawca;
-  
+
+--wstawianie nowych pozycji menu
   procedure pozycja_menu(in_dish_name menu.dish_name%type, in_dish_price menu.dish_price%type, in_vat menu.vat%type)
   is
   begin
@@ -25,7 +28,8 @@ is
     values (in_dish_name, in_dish_price, in_vat);
     tekst('wstawiono nowa pozycję menu: '||in_dish_name||' w cenie: '||in_dish_price||' z vatem: '||in_vat||'%');
   end pozycja_menu;
-  
+
+--funkcja zmieniająca nazwę produktu na jego id 
   function f_prod_id (in_prod_name products.product_name%type) return number
   is
     v_prod_id products.product_id%type;
@@ -37,7 +41,7 @@ is
 
     return v_prod_id;
   end f_prod_id;
-  
+--funkcja zmieniająca nazwę pozycji menu na jego id  
   function f_menu_id (in_dish_name menu.dish_name%type) return number
   is
     v_menu_id menu.menu_id%type;
@@ -49,20 +53,215 @@ is
     
     return v_menu_id;
   end f_menu_id;
-  
-  procedure receptura ( in_dish_name menu.dish_name%type, 
-                        in_prod_name products.product_name%type, 
-                        in_quan recipes.quantity%type, 
-                        in_unit recipes.unit_code%type)
+ 
+ --zbiór procedur które będą wstawiać rekordy do tabeli z recepturami 
+ --procedury kożystają z funkcji zmieniających nazwę na id dzięki czemu osoba wstawiająca nie musi znać id
+ --maksymalna ilość produktór z których składa się danie to 10 szt.
+  procedure receptura_1 ( in_dish_name menu.dish_name%type, 
+                        in_prod_name1 products.product_name%type, 
+                        in_quan1 recipes.quantity%type, 
+                        in_unit1 recipes.unit_code%type)
   is
     v_menu_id menu.menu_id%type;
     v_product_id products.product_id%type;
   begin
     v_menu_id := f_menu_id(in_dish_name);
-    v_product_id := f_prod_id(in_prod_name);
+    v_product_id := f_prod_id(in_prod_name1);
     
     insert into recipes (menu_id, product_id, quantity, unit_code)
-    values (v_menu_id, v_product_id, in_quan, in_unit);
-    tekst('wstawiono recepture na '||in_dish_name||' składajaca się z '||in_prod_name||' w ilości '||in_quan||in_unit);
+    values (v_menu_id, v_product_id, in_quan1, in_unit1);
+    tekst('wstawiono recepture na '||in_dish_name||' składajaca się z '||in_prod_name1||' w ilości '||in_quan1||in_unit1);
+  end receptura_1;
+  
+  procedure receptura_2 (in_dish_name menu.dish_name%type,
+                        in_prod_name2 products.product_name%type, 
+                        in_quan2 recipes.quantity%type, 
+                        in_unit2 recipes.unit_code%type)
+  is
+    v_menu_id menu.menu_id%type;
+    v_product_id products.product_id%type;
+  begin
+    v_menu_id := f_menu_id(in_dish_name);
+    v_product_id := f_prod_id(in_prod_name2);
+    
+    insert into recipes (menu_id, product_id, quantity, unit_code)
+    values (v_menu_id, v_product_id, in_quan2, in_unit2);
+    tekst(' składajaca się z '||in_prod_name2||' w ilości '||in_quan2||in_unit2);
+  end receptura_2;
+  
+  procedure receptura_3 (in_dish_name menu.dish_name%type,
+                        in_prod_name3 products.product_name%type, 
+                        in_quan3 recipes.quantity%type, 
+                        in_unit3 recipes.unit_code%type)
+  is
+    v_menu_id menu.menu_id%type;
+    v_product_id products.product_id%type;
+  begin
+    v_menu_id := f_menu_id(in_dish_name);
+    v_product_id := f_prod_id(in_prod_name3);
+    
+    insert into recipes (menu_id, product_id, quantity, unit_code)
+    values (v_menu_id, v_product_id, in_quan3, in_unit3);
+    tekst(' składajaca się z '||in_prod_name3||' w ilości '||in_quan3||in_unit3);
+  end receptura_3;
+  
+  procedure receptura_4 (in_dish_name menu.dish_name%type,
+                        in_prod_name4 products.product_name%type, 
+                        in_quan4 recipes.quantity%type, 
+                        in_unit4 recipes.unit_code%type)
+  is
+    v_menu_id menu.menu_id%type;
+    v_product_id products.product_id%type;
+  begin
+    v_menu_id := f_menu_id(in_dish_name);
+    v_product_id := f_prod_id(in_prod_name4);
+    
+    insert into recipes (menu_id, product_id, quantity, unit_code)
+    values (v_menu_id, v_product_id, in_quan4, in_unit4);
+    tekst(' składajaca się z '||in_prod_name4||' w ilości '||in_quan4||in_unit4);
+  end receptura_4;
+  
+  procedure receptura_5 (in_dish_name menu.dish_name%type,
+                        in_prod_name5 products.product_name%type, 
+                        in_quan5 recipes.quantity%type, 
+                        in_unit5 recipes.unit_code%type)
+  is
+    v_menu_id menu.menu_id%type;
+    v_product_id products.product_id%type;
+  begin
+    v_menu_id := f_menu_id(in_dish_name);
+    v_product_id := f_prod_id(in_prod_name5);
+    
+    insert into recipes (menu_id, product_id, quantity, unit_code)
+    values (v_menu_id, v_product_id, in_quan5, in_unit5);
+    tekst(' składajaca się z '||in_prod_name5||' w ilości '||in_quan5||in_unit5);
+  end receptura_5;
+  
+  procedure receptura_6 (in_dish_name menu.dish_name%type,
+                        in_prod_name6 products.product_name%type, 
+                        in_quan6 recipes.quantity%type, 
+                        in_unit6 recipes.unit_code%type)
+  is
+    v_menu_id menu.menu_id%type;
+    v_product_id products.product_id%type;
+  begin
+    v_menu_id := f_menu_id(in_dish_name);
+    v_product_id := f_prod_id(in_prod_name6);
+    
+    insert into recipes (menu_id, product_id, quantity, unit_code)
+    values (v_menu_id, v_product_id, in_quan6, in_unit6);
+    tekst(' składajaca się z '||in_prod_name6||' w ilości '||in_quan6||in_unit6);
+  end receptura_6;
+  
+  procedure receptura_7 (in_dish_name menu.dish_name%type,
+                        in_prod_name7 products.product_name%type, 
+                        in_quan7 recipes.quantity%type, 
+                        in_unit7 recipes.unit_code%type)
+  is
+    v_menu_id menu.menu_id%type;
+    v_product_id products.product_id%type;
+  begin
+    v_menu_id := f_menu_id(in_dish_name);
+    v_product_id := f_prod_id(in_prod_name7);
+    
+    insert into recipes (menu_id, product_id, quantity, unit_code)
+    values (v_menu_id, v_product_id, in_quan7, in_unit7);
+    tekst(' składajaca się z '||in_prod_name7||' w ilości '||in_quan7||in_unit7);
+  end receptura_7;
+  
+  procedure receptura_8 (in_dish_name menu.dish_name%type,
+                        in_prod_name8 products.product_name%type, 
+                        in_quan8 recipes.quantity%type, 
+                        in_unit8 recipes.unit_code%type)
+  is
+    v_menu_id menu.menu_id%type;
+    v_product_id products.product_id%type;
+  begin
+    v_menu_id := f_menu_id(in_dish_name);
+    v_product_id := f_prod_id(in_prod_name8);
+    
+    insert into recipes (menu_id, product_id, quantity, unit_code)
+    values (v_menu_id, v_product_id, in_quan8, in_unit8);
+    tekst(' składajaca się z '||in_prod_name8||' w ilości '||in_quan8||in_unit8);
+  end receptura_8;
+  
+  procedure receptura_9 (in_dish_name menu.dish_name%type,
+                        in_prod_name9 products.product_name%type, 
+                        in_quan9 recipes.quantity%type, 
+                        in_unit9 recipes.unit_code%type)
+  is
+    v_menu_id menu.menu_id%type;
+    v_product_id products.product_id%type;
+  begin
+    v_menu_id := f_menu_id(in_dish_name);
+    v_product_id := f_prod_id(in_prod_name9);
+    
+    insert into recipes (menu_id, product_id, quantity, unit_code)
+    values (v_menu_id, v_product_id, in_quan9, in_unit9);
+    tekst(' składajaca się z '||in_prod_name9||' w ilości '||in_quan9||in_unit9);
+  end receptura_9;
+  
+  procedure receptura_10 (in_dish_name menu.dish_name%type,
+                        in_prod_name10 products.product_name%type, 
+                        in_quan10 recipes.quantity%type, 
+                        in_unit10 recipes.unit_code%type)
+  is
+    v_menu_id menu.menu_id%type;
+    v_product_id products.product_id%type;
+  begin
+    v_menu_id := f_menu_id(in_dish_name);
+    v_product_id := f_prod_id(in_prod_name10);
+    
+    insert into recipes (menu_id, product_id, quantity, unit_code)
+    values (v_menu_id, v_product_id, in_quan10, in_unit10);
+    tekst(' składajaca się z '||in_prod_name10||' w ilości '||in_quan10||in_unit10);
+  end receptura_10;
+  
+  procedure receptura ( in_dish_name menu.dish_name%type,
+                        in_prod_name1 products.product_name%type, 
+                        in_quan1 recipes.quantity%type, 
+                        in_unit1 recipes.unit_code%type,
+                        in_prod_name2 products.product_name%type default null, 
+                        in_quan2 recipes.quantity%type default null, 
+                        in_unit2 recipes.unit_code%type default null,
+                        in_prod_name3 products.product_name%type default null, 
+                        in_quan3 recipes.quantity%type default null, 
+                        in_unit3 recipes.unit_code%type default null,
+                        in_prod_name4 products.product_name%type default null, 
+                        in_quan4 recipes.quantity%type default null, 
+                        in_unit4 recipes.unit_code%type default null,
+                        in_prod_name5 products.product_name%type default null, 
+                        in_quan5 recipes.quantity%type default null, 
+                        in_unit5 recipes.unit_code%type default null,
+                        in_prod_name6 products.product_name%type default null, 
+                        in_quan6 recipes.quantity%type default null, 
+                        in_unit6 recipes.unit_code%type default null,
+                        in_prod_name7 products.product_name%type default null, 
+                        in_quan7 recipes.quantity%type default null, 
+                        in_unit7 recipes.unit_code%type default null,
+                        in_prod_name8 products.product_name%type default null, 
+                        in_quan8 recipes.quantity%type default null, 
+                        in_unit8 recipes.unit_code%type default null,
+                        in_prod_name9 products.product_name%type default null, 
+                        in_quan9 recipes.quantity%type default null, 
+                        in_unit9 recipes.unit_code%type default null,
+                        in_prod_name10 products.product_name%type default null, 
+                        in_quan10 recipes.quantity%type default null, 
+                        in_unit10 recipes.unit_code%type default null)
+  is
+  begin
+    receptura_1(in_dish_name, in_prod_name1, in_quan1, in_unit1);
+    receptura_2(in_dish_name, in_prod_name2, in_quan2, in_unit2);
+    receptura_3(in_dish_name, in_prod_name3, in_quan3, in_unit3);
+    receptura_4(in_dish_name, in_prod_name4, in_quan4, in_unit4);
+    receptura_5(in_dish_name, in_prod_name5, in_quan5, in_unit5);
+    receptura_6(in_dish_name, in_prod_name6, in_quan6, in_unit6);
+    receptura_7(in_dish_name, in_prod_name7, in_quan7, in_unit7);
+    receptura_8(in_dish_name, in_prod_name8, in_quan8, in_unit8);
+    receptura_9(in_dish_name, in_prod_name9, in_quan9, in_unit9);
+    receptura_10(in_dish_name, in_prod_name10, in_quan10, in_unit10);
+  exception
+    when no_data_found then null;
   end receptura;
+  
 end;
