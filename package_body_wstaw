@@ -275,4 +275,49 @@ is
     when no_data_found then null;
   end receptura;
   
+  function f_dep_code (in_dep_name departments.department_name%type) return varchar2
+  is
+    v_dep_code departments.department_code%type;
+  begin
+    select department_code
+    into v_dep_code
+    from departments
+    where department_name = in_dep_name;
+  
+    return v_dep_code;
+  end f_dep_code;
+  
+  function f_man_id (in_first employees.first_name%type, in_last employees.last_name%type) return number
+  is
+    v_man_id employees.employee_id%type;
+  begin
+    select employee_id
+    into v_man_id
+    from employees
+    where first_name = in_first and last_name = in_last;
+  
+    return v_man_id;
+  end f_man_id;
+  
+  procedure pracownik ( in_first employees.first_name%type, 
+                                        in_last employees.last_name%type, 
+                                        in_pesel employees.pesel%type, 
+                                        in_dep departments.department_name%type, 
+                                        in_salary employees.salary%type, 
+                                        in_man_f employees.first_name%type default null, 
+                                        in_man_l employees.last_name%type default null)
+  is
+    v_dep_code departments.department_code%type;
+    v_man_id employees.employee_id%type;
+  begin
+    v_dep_code := f_dep_code(in_dep);
+    v_man_id := f_man_in(in_man_f, in_man_l);
+  
+    insert into employees (first_name, last_name, pesel, department_code, salary, manager_id)
+    values (in_first, in_last, in_pesel, v_dep_code, in_salary, v_man_id);
+  
+    tekst('Wstawiono pracownika '||in_first||' '||in_last||' o nr. pesel '||in_pesel||' pracujacego na stanowisku '||in_dep||
+    ' zarabiajacego '||in_salary||' którego przełożonym będzie '||in_man_f||' '||in_man_l);
+  end pracownik;
+  
 end;
