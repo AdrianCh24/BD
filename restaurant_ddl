@@ -60,7 +60,8 @@ CREATE TABLE orders (
     order_id     INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL,
     order_number INTEGER NOT NULL,
     menu_id      INTEGER NOT NULL,
-    employee_id  INTEGER NOT NULL
+    employee_id  INTEGER NOT NULL,
+    quantity     NUMBER(2)
 );
 
 ALTER TABLE orders ADD CONSTRAINT orders_pk PRIMARY KEY ( order_id );
