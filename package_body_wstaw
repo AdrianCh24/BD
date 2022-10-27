@@ -722,4 +722,32 @@ is
     when no_data_found then null;
   end dostawa;
   
+--funkcja generująca nowy nr zamówienia
+  function f_up_nr_or return number
+  is
+    v_nr_or orders.order_number%type;
+  begin
+    select max (order_number)
+    into v_nr_or
+    from orders;
+  
+    if v_nr_or is null then v_nr_or := 0;
+    end if;
+  
+    return v_nr_or +1;
+  end f_up_nr_or;
+  
+--funkcja zwracająca kod działu po podaniu imienia i nazwiska pracownika
+  function f_dep_code ( in_first employees.first_name%type, in_last employees.last_name%type) return varchar2
+  is
+    v_dep_code employees.department_code%type;
+  begin
+    select department_code
+    into v_dep_code
+    from employees
+    where first_name = in_first and last_name = in_last;
+  
+    return v_dep_code;
+  end f_dep_code;
+  
 end;
