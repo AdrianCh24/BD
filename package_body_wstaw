@@ -13,6 +13,8 @@ is
     tekst('-recepture wstaw.receptura (nazwa dania, nazwa produktu, ilość, g/ml/szt.)następny produkt bez nazwy dania');
     tekst('-pracownika wstaw.pracownik (imię, nazwisko, pesel, nazwa działu, wynagrodzenie, imię przełożonego, nazwisko przełożonego)');
     tekst('-menu do stanowista wstaw.menu_stanowisko (nazwa dania, nazwa stanowiska)');
+    tekst('-dostawa wstaw.dostawa (nazwa dostawcy, nr_faktury, nazwa produktu, ilość, kg/l/szt, cena, vat)następny produkt bez nazwy dostawcy i nr faktury');
+    tekst('-zamówienie wstaw.zamowienie (nr. zamówienia 0 dla nowego, imię kelnera, nazwisko kelnera, nazwę dania, ilość)następne danie bez nr zamówienia i kelnera');
   end;
 
 --wstawianie produktów
@@ -25,7 +27,9 @@ is
   end produkt;
 
 --wstawianie dostawców
-  procedure dostawca(in_supp_name suppliers.supplier_name%type, in_phon_numb suppliers.phone_number%type default null, in_bank_numb suppliers.bank_account_number%type default null)
+  procedure dostawca( in_supp_name suppliers.supplier_name%type, 
+                      in_phon_numb suppliers.phone_number%type default null, 
+                      in_bank_numb suppliers.bank_account_number%type default null)
   is
   begin
     insert into suppliers(supplier_name, phone_number, bank_account_number)
@@ -34,7 +38,9 @@ is
   end dostawca;
 
 --wstawianie nowych pozycji menu
-  procedure pozycja_menu(in_dish_name menu.dish_name%type, in_dish_price menu.dish_price%type, in_vat menu.vat%type)
+  procedure pozycja_menu( in_dish_name menu.dish_name%type, 
+                          in_dish_price menu.dish_price%type, 
+                          in_vat menu.vat%type)
   is
   begin
     insert into menu(dish_name, dish_price, vat)
@@ -54,6 +60,7 @@ is
 
     return v_prod_id;
   end f_prod_id;
+
 --funkcja zmieniająca nazwę pozycji menu na jego id  
   function f_menu_id (in_dish_name menu.dish_name%type) return number
   is
@@ -69,165 +76,146 @@ is
  
  --zbiór procedur które będą wstawiać rekordy do tabeli z recepturami 
  --procedury kożystają z funkcji zmieniających nazwę na id dzięki czemu osoba wstawiająca nie musi znać id
- --maksymalna ilość produktór z których składa się danie to 10 szt.
-  procedure receptura_1 ( in_dish_name menu.dish_name%type, 
+ --maksymalna ilość produktów z których składa się danie to 10 szt.
+  
+  procedure receptura_1 ( in_dish_name menu.menu_id%type, 
                         in_prod_name1 products.product_name%type, 
                         in_quan1 recipes.quantity%type, 
                         in_unit1 recipes.unit_code%type)
   is
-    v_menu_id menu.menu_id%type;
     v_product_id products.product_id%type;
   begin
-    v_menu_id := f_menu_id(in_dish_name);
     v_product_id := f_prod_id(in_prod_name1);
     
     insert into recipes (menu_id, product_id, quantity, unit_code)
-    values (v_menu_id, v_product_id, in_quan1, in_unit1);
-    tekst('wstawiono recepture na '||in_dish_name||' składajaca się z '||in_prod_name1||' w ilości '||in_quan1||in_unit1);
+    values (in_dish_name, v_product_id, in_quan1, in_unit1);
+    tekst(in_prod_name1||' w ilości '||in_quan1||in_unit1);
   end receptura_1;
   
-  procedure receptura_2 (in_dish_name menu.dish_name%type,
+  procedure receptura_2 (in_dish_name menu.menu_id%type,
                         in_prod_name2 products.product_name%type, 
                         in_quan2 recipes.quantity%type, 
                         in_unit2 recipes.unit_code%type)
   is
-    v_menu_id menu.menu_id%type;
     v_product_id products.product_id%type;
   begin
-    v_menu_id := f_menu_id(in_dish_name);
     v_product_id := f_prod_id(in_prod_name2);
     
     insert into recipes (menu_id, product_id, quantity, unit_code)
-    values (v_menu_id, v_product_id, in_quan2, in_unit2);
-    tekst(' składajaca się z '||in_prod_name2||' w ilości '||in_quan2||in_unit2);
+    values (in_dish_name, v_product_id, in_quan2, in_unit2);
+    tekst(in_prod_name2||' w ilości '||in_quan2||in_unit2);
   end receptura_2;
   
-  procedure receptura_3 (in_dish_name menu.dish_name%type,
+  procedure receptura_3 (in_dish_name menu.menu_id%type,
                         in_prod_name3 products.product_name%type, 
                         in_quan3 recipes.quantity%type, 
                         in_unit3 recipes.unit_code%type)
   is
-    v_menu_id menu.menu_id%type;
     v_product_id products.product_id%type;
   begin
-    v_menu_id := f_menu_id(in_dish_name);
     v_product_id := f_prod_id(in_prod_name3);
     
     insert into recipes (menu_id, product_id, quantity, unit_code)
-    values (v_menu_id, v_product_id, in_quan3, in_unit3);
-    tekst(' składajaca się z '||in_prod_name3||' w ilości '||in_quan3||in_unit3);
+    values (in_dish_name, v_product_id, in_quan3, in_unit3);
+    tekst(in_prod_name3||' w ilości '||in_quan3||in_unit3);
   end receptura_3;
   
-  procedure receptura_4 (in_dish_name menu.dish_name%type,
+  procedure receptura_4 (in_dish_name menu.menu_id%type,
                         in_prod_name4 products.product_name%type, 
                         in_quan4 recipes.quantity%type, 
                         in_unit4 recipes.unit_code%type)
   is
-    v_menu_id menu.menu_id%type;
     v_product_id products.product_id%type;
   begin
-    v_menu_id := f_menu_id(in_dish_name);
     v_product_id := f_prod_id(in_prod_name4);
     
     insert into recipes (menu_id, product_id, quantity, unit_code)
-    values (v_menu_id, v_product_id, in_quan4, in_unit4);
-    tekst(' składajaca się z '||in_prod_name4||' w ilości '||in_quan4||in_unit4);
+    values (in_dish_name, v_product_id, in_quan4, in_unit4);
+    tekst(in_prod_name4||' w ilości '||in_quan4||in_unit4);
   end receptura_4;
   
-  procedure receptura_5 (in_dish_name menu.dish_name%type,
+  procedure receptura_5 (in_dish_name menu.menu_id%type,
                         in_prod_name5 products.product_name%type, 
                         in_quan5 recipes.quantity%type, 
                         in_unit5 recipes.unit_code%type)
   is
-    v_menu_id menu.menu_id%type;
     v_product_id products.product_id%type;
   begin
-    v_menu_id := f_menu_id(in_dish_name);
     v_product_id := f_prod_id(in_prod_name5);
     
     insert into recipes (menu_id, product_id, quantity, unit_code)
-    values (v_menu_id, v_product_id, in_quan5, in_unit5);
-    tekst(' składajaca się z '||in_prod_name5||' w ilości '||in_quan5||in_unit5);
+    values (in_dish_name, v_product_id, in_quan5, in_unit5);
+    tekst(in_prod_name5||' w ilości '||in_quan5||in_unit5);
   end receptura_5;
   
-  procedure receptura_6 (in_dish_name menu.dish_name%type,
+  procedure receptura_6 (in_dish_name menu.menu_id%type,
                         in_prod_name6 products.product_name%type, 
                         in_quan6 recipes.quantity%type, 
                         in_unit6 recipes.unit_code%type)
   is
-    v_menu_id menu.menu_id%type;
     v_product_id products.product_id%type;
   begin
-    v_menu_id := f_menu_id(in_dish_name);
     v_product_id := f_prod_id(in_prod_name6);
     
     insert into recipes (menu_id, product_id, quantity, unit_code)
-    values (v_menu_id, v_product_id, in_quan6, in_unit6);
-    tekst(' składajaca się z '||in_prod_name6||' w ilości '||in_quan6||in_unit6);
+    values (in_dish_name, v_product_id, in_quan6, in_unit6);
+    tekst(in_prod_name6||' w ilości '||in_quan6||in_unit6);
   end receptura_6;
   
-  procedure receptura_7 (in_dish_name menu.dish_name%type,
+  procedure receptura_7 (in_dish_name menu.menu_id%type,
                         in_prod_name7 products.product_name%type, 
                         in_quan7 recipes.quantity%type, 
                         in_unit7 recipes.unit_code%type)
   is
-    v_menu_id menu.menu_id%type;
     v_product_id products.product_id%type;
   begin
-    v_menu_id := f_menu_id(in_dish_name);
     v_product_id := f_prod_id(in_prod_name7);
     
     insert into recipes (menu_id, product_id, quantity, unit_code)
-    values (v_menu_id, v_product_id, in_quan7, in_unit7);
-    tekst(' składajaca się z '||in_prod_name7||' w ilości '||in_quan7||in_unit7);
+    values (in_dish_name, v_product_id, in_quan7, in_unit7);
+    tekst(in_prod_name7||' w ilości '||in_quan7||in_unit7);
   end receptura_7;
   
-  procedure receptura_8 (in_dish_name menu.dish_name%type,
+  procedure receptura_8 (in_dish_name menu.menu_id%type,
                         in_prod_name8 products.product_name%type, 
                         in_quan8 recipes.quantity%type, 
                         in_unit8 recipes.unit_code%type)
   is
-    v_menu_id menu.menu_id%type;
     v_product_id products.product_id%type;
   begin
-    v_menu_id := f_menu_id(in_dish_name);
     v_product_id := f_prod_id(in_prod_name8);
     
     insert into recipes (menu_id, product_id, quantity, unit_code)
-    values (v_menu_id, v_product_id, in_quan8, in_unit8);
-    tekst(' składajaca się z '||in_prod_name8||' w ilości '||in_quan8||in_unit8);
+    values (in_dish_name, v_product_id, in_quan8, in_unit8);
+    tekst(in_prod_name8||' w ilości '||in_quan8||in_unit8);
   end receptura_8;
   
-  procedure receptura_9 (in_dish_name menu.dish_name%type,
+  procedure receptura_9 (in_dish_name menu.menu_id%type,
                         in_prod_name9 products.product_name%type, 
                         in_quan9 recipes.quantity%type, 
                         in_unit9 recipes.unit_code%type)
   is
-    v_menu_id menu.menu_id%type;
     v_product_id products.product_id%type;
   begin
-    v_menu_id := f_menu_id(in_dish_name);
     v_product_id := f_prod_id(in_prod_name9);
     
     insert into recipes (menu_id, product_id, quantity, unit_code)
-    values (v_menu_id, v_product_id, in_quan9, in_unit9);
-    tekst(' składajaca się z '||in_prod_name9||' w ilości '||in_quan9||in_unit9);
+    values (in_dish_name, v_product_id, in_quan9, in_unit9);
+    tekst(in_prod_name9||' w ilości '||in_quan9||in_unit9);
   end receptura_9;
   
-  procedure receptura_10 (in_dish_name menu.dish_name%type,
+  procedure receptura_10 (in_dish_name menu.menu_id%type,
                         in_prod_name10 products.product_name%type, 
                         in_quan10 recipes.quantity%type, 
                         in_unit10 recipes.unit_code%type)
   is
-    v_menu_id menu.menu_id%type;
     v_product_id products.product_id%type;
   begin
-    v_menu_id := f_menu_id(in_dish_name);
     v_product_id := f_prod_id(in_prod_name10);
     
     insert into recipes (menu_id, product_id, quantity, unit_code)
-    values (v_menu_id, v_product_id, in_quan10, in_unit10);
-    tekst(' składajaca się z '||in_prod_name10||' w ilości '||in_quan10||in_unit10);
+    values (in_dish_name, v_product_id, in_quan10, in_unit10);
+    tekst(in_prod_name10||' w ilości '||in_quan10||in_unit10);
   end receptura_10;
   
   procedure receptura ( in_dish_name menu.dish_name%type,
@@ -262,17 +250,22 @@ is
                         in_quan10 recipes.quantity%type default null, 
                         in_unit10 recipes.unit_code%type default null)
   is
+    v_menu_id menu.menu_id%type;
   begin
-    receptura_1(in_dish_name, in_prod_name1, in_quan1, in_unit1);
-    receptura_2(in_dish_name, in_prod_name2, in_quan2, in_unit2);
-    receptura_3(in_dish_name, in_prod_name3, in_quan3, in_unit3);
-    receptura_4(in_dish_name, in_prod_name4, in_quan4, in_unit4);
-    receptura_5(in_dish_name, in_prod_name5, in_quan5, in_unit5);
-    receptura_6(in_dish_name, in_prod_name6, in_quan6, in_unit6);
-    receptura_7(in_dish_name, in_prod_name7, in_quan7, in_unit7);
-    receptura_8(in_dish_name, in_prod_name8, in_quan8, in_unit8);
-    receptura_9(in_dish_name, in_prod_name9, in_quan9, in_unit9);
-    receptura_10(in_dish_name, in_prod_name10, in_quan10, in_unit10);
+    v_menu_id := f_menu_id(in_dish_name);
+    
+    tekst('wstawiono recepture na '||in_dish_name||' składajaca się z ');
+    
+    receptura_1(v_menu_id, in_prod_name1, in_quan1, in_unit1);
+    receptura_2(v_menu_id, in_prod_name2, in_quan2, in_unit2);
+    receptura_3(v_menu_id, in_prod_name3, in_quan3, in_unit3);
+    receptura_4(v_menu_id, in_prod_name4, in_quan4, in_unit4);
+    receptura_5(v_menu_id, in_prod_name5, in_quan5, in_unit5);
+    receptura_6(v_menu_id, in_prod_name6, in_quan6, in_unit6);
+    receptura_7(v_menu_id, in_prod_name7, in_quan7, in_unit7);
+    receptura_8(v_menu_id, in_prod_name8, in_quan8, in_unit8);
+    receptura_9(v_menu_id, in_prod_name9, in_quan9, in_unit9);
+    receptura_10(v_menu_id, in_prod_name10, in_quan10, in_unit10);
   exception
     when no_data_found then null;
   end receptura;
@@ -399,7 +392,8 @@ is
     return v_unit;
   end f_up_unit;
   
-  procedure dostawa_1(  in_sup_name suppliers.supplier_name%type,
+  procedure dostawa_1( in_nr_dv delivery.delivery_number%type,
+                        in_sup_id suppliers.supplier_id%type,
                         in_iv delivery.invoice_number%type,
                         in_prod_name1 products.product_name%type,
                         in_qan1 number,
@@ -407,24 +401,21 @@ is
                         in_price1 delivery.product_price%type,
                         in_vat1 delivery.vat%type)
   is
-    v_nr_dv number;
-    v_sup_id number;
-    v_prod_id1 number;
-    v_kg_l1 number;
-    v_unit1 varchar2(5);
+    v_prod_id number;
+    v_kg_l number;
+    v_unit varchar2(5);
   begin
-    v_nr_dv := f_up_id_dv;
-    v_sup_id := f_sup_id(in_sup_name);
-    v_prod_id1 := f_prod_id(in_prod_name1);
-    v_kg_l1 := f_kg_l(in_qan1);
-    v_unit1 := f_up_unit(in_unit1);
+    v_prod_id := f_prod_id(in_prod_name1);
+    v_kg_l := f_kg_l(in_qan1);
+    v_unit := f_up_unit(in_unit1);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
-    values (v_nr_dv, v_prod_id1, v_kg_l1, v_unit1, in_price1, in_vat1, v_sup_id, in_iv);
+    values (in_nr_dv, v_prod_id, v_kg_l, v_unit, in_price1, in_vat1, in_sup_id, in_iv);
     tekst(in_prod_name1||' '||in_qan1||in_unit1||'.'||' w cenie '||in_price1||' z vatem '||in_vat1||'%');
   end dostawa_1;
   
-  procedure dostawa_2(  in_sup_name suppliers.supplier_name%type,
+  procedure dostawa_2( in_nr_dv delivery.delivery_number%type,
+                        in_sup_id suppliers.supplier_id%type,
                         in_iv delivery.invoice_number%type,
                         in_prod_name2 products.product_name%type,
                         in_qan2 number,
@@ -432,24 +423,21 @@ is
                         in_price2 delivery.product_price%type,
                         in_vat2 delivery.vat%type)
   is
-    v_nr_dv number;
-    v_sup_id number;
     v_prod_id number;
     v_kg_l number;
     v_unit varchar2(5);
   begin
-    v_nr_dv := f_up_id_dv;
-    v_sup_id := f_sup_id(in_sup_name);
     v_prod_id := f_prod_id(in_prod_name2);
     v_kg_l := f_kg_l(in_qan2);
     v_unit := f_up_unit(in_unit2);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
-    values (v_nr_dv, v_prod_id, v_kg_l, v_unit, in_price2, in_vat2, v_sup_id, in_iv);
+    values (in_nr_dv, v_prod_id, v_kg_l, v_unit, in_price2, in_vat2, in_sup_id, in_iv);
     tekst(in_prod_name2||' '||in_qan2||in_unit2||'.'||' w cenie '||in_price2||' z vatem '||in_vat2||'%');
   end dostawa_2;
   
-  procedure dostawa_3(  in_sup_name suppliers.supplier_name%type,
+  procedure dostawa_3( in_nr_dv delivery.delivery_number%type,
+                        in_sup_id suppliers.supplier_id%type,
                         in_iv delivery.invoice_number%type,
                         in_prod_name3 products.product_name%type,
                         in_qan3 number,
@@ -457,24 +445,21 @@ is
                         in_price3 delivery.product_price%type,
                         in_vat3 delivery.vat%type)
   is
-    v_nr_dv number;
-    v_sup_id number;
     v_prod_id number;
     v_kg_l number;
     v_unit varchar2(5);
   begin
-    v_nr_dv := f_up_id_dv;
-    v_sup_id := f_sup_id(in_sup_name);
     v_prod_id := f_prod_id(in_prod_name3);
     v_kg_l := f_kg_l(in_qan3);
     v_unit := f_up_unit(in_unit3);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
-    values (v_nr_dv, v_prod_id, v_kg_l, v_unit, in_price3, in_vat3, v_sup_id, in_iv);
+    values (in_nr_dv, v_prod_id, v_kg_l, v_unit, in_price3, in_vat3, in_sup_id, in_iv);
     tekst(in_prod_name3||' '||in_qan3||in_unit3||'.'||' w cenie '||in_price3||' z vatem '||in_vat3||'%');
   end dostawa_3;
   
-  procedure dostawa_4(  in_sup_name suppliers.supplier_name%type,
+  procedure dostawa_4( in_nr_dv delivery.delivery_number%type,
+                        in_sup_id suppliers.supplier_id%type,
                         in_iv delivery.invoice_number%type,
                         in_prod_name4 products.product_name%type,
                         in_qan4 number,
@@ -482,24 +467,21 @@ is
                         in_price4 delivery.product_price%type,
                         in_vat4 delivery.vat%type)
   is
-    v_nr_dv number;
-    v_sup_id number;
     v_prod_id number;
     v_kg_l number;
     v_unit varchar2(5);
   begin
-    v_nr_dv := f_up_id_dv;
-    v_sup_id := f_sup_id(in_sup_name);
     v_prod_id := f_prod_id(in_prod_name4);
     v_kg_l := f_kg_l(in_qan4);
     v_unit := f_up_unit(in_unit4);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
-    values (v_nr_dv, v_prod_id, v_kg_l, v_unit, in_price4, in_vat4, v_sup_id, in_iv);
+    values (in_nr_dv, v_prod_id, v_kg_l, v_unit, in_price4, in_vat4, in_sup_id, in_iv);
     tekst(in_prod_name4||' '||in_qan4||in_unit4||'.'||' w cenie '||in_price4||' z vatem '||in_vat4||'%');
   end dostawa_4;
   
-  procedure dostawa_5(  in_sup_name suppliers.supplier_name%type,
+  procedure dostawa_5( in_nr_dv delivery.delivery_number%type,
+                        in_sup_id suppliers.supplier_id%type,
                         in_iv delivery.invoice_number%type,
                         in_prod_name5 products.product_name%type,
                         in_qan5 number,
@@ -507,24 +489,21 @@ is
                         in_price5 delivery.product_price%type,
                         in_vat5 delivery.vat%type)
   is
-    v_nr_dv number;
-    v_sup_id number;
     v_prod_id number;
     v_kg_l number;
     v_unit varchar2(5);
   begin
-    v_nr_dv := f_up_id_dv;
-    v_sup_id := f_sup_id(in_sup_name);
     v_prod_id := f_prod_id(in_prod_name5);
     v_kg_l := f_kg_l(in_qan5);
     v_unit := f_up_unit(in_unit5);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
-    values (v_nr_dv, v_prod_id, v_kg_l, v_unit, in_price5, in_vat5, v_sup_id, in_iv);
+    values (in_nr_dv, v_prod_id, v_kg_l, v_unit, in_price5, in_vat5, in_sup_id, in_iv);
     tekst(in_prod_name5||' '||in_qan5||in_unit5||'.'||' w cenie '||in_price5||' z vatem '||in_vat5||'%');
   end dostawa_5;
   
-  procedure dostawa_6(  in_sup_name suppliers.supplier_name%type,
+  procedure dostawa_6( in_nr_dv delivery.delivery_number%type,
+                        in_sup_id suppliers.supplier_id%type,
                         in_iv delivery.invoice_number%type,
                         in_prod_name6 products.product_name%type,
                         in_qan6 number,
@@ -532,24 +511,21 @@ is
                         in_price6 delivery.product_price%type,
                         in_vat6 delivery.vat%type)
   is
-    v_nr_dv number;
-    v_sup_id number;
     v_prod_id number;
     v_kg_l number;
     v_unit varchar2(5);
   begin
-    v_nr_dv := f_up_id_dv;
-    v_sup_id := f_sup_id(in_sup_name);
     v_prod_id := f_prod_id(in_prod_name6);
     v_kg_l := f_kg_l(in_qan6);
     v_unit := f_up_unit(in_unit6);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
-    values (v_nr_dv, v_prod_id, v_kg_l, v_unit, in_price6, in_vat6, v_sup_id, in_iv);
+    values (in_nr_dv, v_prod_id, v_kg_l, v_unit, in_price6, in_vat6, in_sup_id, in_iv);
     tekst(in_prod_name6||' '||in_qan6||in_unit6||'.'||' w cenie '||in_price6||' z vatem '||in_vat6||'%');
   end dostawa_6;
   
-  procedure dostawa_7(  in_sup_name suppliers.supplier_name%type,
+  procedure dostawa_7( in_nr_dv delivery.delivery_number%type,
+                        in_sup_id suppliers.supplier_id%type,
                         in_iv delivery.invoice_number%type,
                         in_prod_name7 products.product_name%type,
                         in_qan7 number,
@@ -557,24 +533,21 @@ is
                         in_price7 delivery.product_price%type,
                         in_vat7 delivery.vat%type)
   is
-    v_nr_dv number;
-    v_sup_id number;
     v_prod_id number;
     v_kg_l number;
     v_unit varchar2(5);
   begin
-    v_nr_dv := f_up_id_dv;
-    v_sup_id := f_sup_id(in_sup_name);
     v_prod_id := f_prod_id(in_prod_name7);
     v_kg_l := f_kg_l(in_qan7);
     v_unit := f_up_unit(in_unit7);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
-    values (v_nr_dv, v_prod_id, v_kg_l, v_unit, in_price7, in_vat7, v_sup_id, in_iv);
+    values (in_nr_dv, v_prod_id, v_kg_l, v_unit, in_price7, in_vat7, in_sup_id, in_iv);
     tekst(in_prod_name7||' '||in_qan7||in_unit7||'.'||' w cenie '||in_price7||' z vatem '||in_vat7||'%');
   end dostawa_7;
   
-  procedure dostawa_8(  in_sup_name suppliers.supplier_name%type,
+  procedure dostawa_8( in_nr_dv delivery.delivery_number%type,
+                        in_sup_id suppliers.supplier_id%type,
                         in_iv delivery.invoice_number%type,
                         in_prod_name8 products.product_name%type,
                         in_qan8 number,
@@ -582,24 +555,21 @@ is
                         in_price8 delivery.product_price%type,
                         in_vat8 delivery.vat%type)
   is
-    v_nr_dv number;
-    v_sup_id number;
     v_prod_id number;
     v_kg_l number;
     v_unit varchar2(5);
   begin
-    v_nr_dv := f_up_id_dv;
-    v_sup_id := f_sup_id(in_sup_name);
     v_prod_id := f_prod_id(in_prod_name8);
     v_kg_l := f_kg_l(in_qan8);
     v_unit := f_up_unit(in_unit8);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
-    values (v_nr_dv, v_prod_id, v_kg_l, v_unit, in_price8, in_vat8, v_sup_id, in_iv);
+    values (in_nr_dv, v_prod_id, v_kg_l, v_unit, in_price8, in_vat8, in_sup_id, in_iv);
     tekst(in_prod_name8||' '||in_qan8||in_unit8||'.'||' w cenie '||in_price8||' z vatem '||in_vat8||'%');
   end dostawa_8;
   
-  procedure dostawa_9(  in_sup_name suppliers.supplier_name%type,
+  procedure dostawa_9( in_nr_dv delivery.delivery_number%type,
+                        in_sup_id suppliers.supplier_id%type,
                         in_iv delivery.invoice_number%type,
                         in_prod_name9 products.product_name%type,
                         in_qan9 number,
@@ -607,24 +577,21 @@ is
                         in_price9 delivery.product_price%type,
                         in_vat9 delivery.vat%type)
   is
-    v_nr_dv number;
-    v_sup_id number;
     v_prod_id number;
     v_kg_l number;
     v_unit varchar2(5);
   begin
-    v_nr_dv := f_up_id_dv;
-    v_sup_id := f_sup_id(in_sup_name);
     v_prod_id := f_prod_id(in_prod_name9);
     v_kg_l := f_kg_l(in_qan9);
     v_unit := f_up_unit(in_unit9);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
-    values (v_nr_dv, v_prod_id, v_kg_l, v_unit, in_price9, in_vat9, v_sup_id, in_iv);
+    values (in_nr_dv, v_prod_id, v_kg_l, v_unit, in_price9, in_vat9, in_sup_id, in_iv);
     tekst(in_prod_name9||' '||in_qan9||in_unit9||'.'||' w cenie '||in_price9||' z vatem '||in_vat9||'%');
   end dostawa_9;
   
-  procedure dostawa_10(  in_sup_name suppliers.supplier_name%type,
+  procedure dostawa_10( in_nr_dv delivery.delivery_number%type,
+                        in_sup_id suppliers.supplier_id%type,
                         in_iv delivery.invoice_number%type,
                         in_prod_name10 products.product_name%type,
                         in_qan10 number,
@@ -632,24 +599,20 @@ is
                         in_price10 delivery.product_price%type,
                         in_vat10 delivery.vat%type)
   is
-    v_nr_dv number;
-    v_sup_id number;
     v_prod_id number;
     v_kg_l number;
     v_unit varchar2(5);
   begin
-    v_nr_dv := f_up_id_dv;
-    v_sup_id := f_sup_id(in_sup_name);
     v_prod_id := f_prod_id(in_prod_name10);
     v_kg_l := f_kg_l(in_qan10);
     v_unit := f_up_unit(in_unit10);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
-    values (v_nr_dv, v_prod_id, v_kg_l, v_unit, in_price10, in_vat10, v_sup_id, in_iv);
+    values (in_nr_dv, v_prod_id, v_kg_l, v_unit, in_price10, in_vat10, in_sup_id, in_iv);
     tekst(in_prod_name10||' '||in_qan10||in_unit10||'.'||' w cenie '||in_price10||' z vatem '||in_vat10||'%');
   end dostawa_10;
   
---procedura wstawiająca dane na temat dostawy do tabeli kożysta z 10 procedur 
+--procedura wstawiająca dostawe kożysta z 10 powyższych procedur
   procedure dostawa(in_sup_name suppliers.supplier_name%type,
                     in_iv delivery.invoice_number%type,
                     in_prod_name1 products.product_name%type, 
@@ -704,20 +667,22 @@ is
                     in_vat10 delivery.vat%type default null)
   is
     v_nr_dv number;
+    v_sup_id number;
   begin
     v_nr_dv := f_up_id_dv;
+    v_sup_id := f_sup_id(in_sup_name);
     
     tekst('wstawiono dostawę nr. '||v_nr_dv||' z '||in_sup_name||' z faktóra o nr. '||in_iv||' w której skład wchodza ');
-    dostawa_1(in_sup_name, in_iv, in_prod_name1, in_qan1, in_unit1, in_price1, in_vat1);
-    dostawa_2(in_sup_name, in_iv, in_prod_name2, in_qan2, in_unit2, in_price2, in_vat2);
-    dostawa_3(in_sup_name, in_iv, in_prod_name3, in_qan3, in_unit3, in_price3, in_vat3);
-    dostawa_4(in_sup_name, in_iv, in_prod_name4, in_qan4, in_unit4, in_price4, in_vat4);
-    dostawa_5(in_sup_name, in_iv, in_prod_name5, in_qan5, in_unit5, in_price5, in_vat5);
-    dostawa_6(in_sup_name, in_iv, in_prod_name6, in_qan6, in_unit6, in_price6, in_vat6);
-    dostawa_7(in_sup_name, in_iv, in_prod_name7, in_qan7, in_unit7, in_price7, in_vat7);
-    dostawa_8(in_sup_name, in_iv, in_prod_name8, in_qan8, in_unit8, in_price8, in_vat8);
-    dostawa_9(in_sup_name, in_iv, in_prod_name9, in_qan9, in_unit9, in_price9, in_vat9);
-    dostawa_10(in_sup_name, in_iv, in_prod_name10, in_qan10, in_unit10, in_price10, in_vat10);
+    dostawa_1(v_nr_dv, v_sup_id, in_iv, in_prod_name1, in_qan1, in_unit1, in_price1, in_vat1);
+    dostawa_2(v_nr_dv, v_sup_id, in_iv, in_prod_name2, in_qan2, in_unit2, in_price2, in_vat2);
+    dostawa_3(v_nr_dv, v_sup_id, in_iv, in_prod_name3, in_qan3, in_unit3, in_price3, in_vat3);
+    dostawa_4(v_nr_dv, v_sup_id, in_iv, in_prod_name4, in_qan4, in_unit4, in_price4, in_vat4);
+    dostawa_5(v_nr_dv, v_sup_id, in_iv, in_prod_name5, in_qan5, in_unit5, in_price5, in_vat5);
+    dostawa_6(v_nr_dv, v_sup_id, in_iv, in_prod_name6, in_qan6, in_unit6, in_price6, in_vat6);
+    dostawa_7(v_nr_dv, v_sup_id, in_iv, in_prod_name7, in_qan7, in_unit7, in_price7, in_vat7);
+    dostawa_8(v_nr_dv, v_sup_id, in_iv, in_prod_name8, in_qan8, in_unit8, in_price8, in_vat8);
+    dostawa_9(v_nr_dv, v_sup_id, in_iv, in_prod_name9, in_qan9, in_unit9, in_price9, in_vat9);
+    dostawa_10(v_nr_dv, v_sup_id, in_iv, in_prod_name10, in_qan10, in_unit10, in_price10, in_vat10);
   exception
     when no_data_found then null;
   end dostawa;
@@ -749,5 +714,204 @@ is
   
     return v_dep_code;
   end f_dep_code;
+  
+  procedure zamowienie_1 (in_or_nr orders.order_number%type,
+                        in_menu_name1 menu.dish_name%type,
+                        in_emp_id employees.employee_id%type,
+                        in_quan1 orders.quantity%type)
+  is
+    v_menu_id menu.menu_id%type;
+  begin
+    v_menu_id := f_menu_id(in_menu_name1);
+    
+    insert into orders (order_number, menu_id, employee_id, quantity)
+    values (in_or_nr, v_menu_id, in_emp_id, in_quan1);
+    tekst(in_menu_name1||' '||in_quan1||' szt.');
+  end zamowienie_1;
+  
+  procedure zamowienie_2 (in_or_nr orders.order_number%type,
+                        in_menu_name2 menu.dish_name%type,
+                        in_emp_id employees.employee_id%type,
+                        in_quan2 orders.quantity%type)
+  is
+    v_menu_id menu.menu_id%type;
+  begin
+    v_menu_id := f_menu_id(in_menu_name2);
+    
+    insert into orders (order_number, menu_id, employee_id, quantity)
+    values (in_or_nr, v_menu_id, in_emp_id, in_quan2);
+    tekst(in_menu_name2||' '||in_quan2||' szt.');
+  end zamowienie_2;
+  
+  procedure zamowienie_3 (in_or_nr orders.order_number%type,
+                        in_menu_name3 menu.dish_name%type,
+                        in_emp_id employees.employee_id%type,
+                        in_quan3 orders.quantity%type)
+  is
+    v_menu_id menu.menu_id%type;
+  begin
+    v_menu_id := f_menu_id(in_menu_name3);
+    
+    insert into orders (order_number, menu_id, employee_id, quantity)
+    values (in_or_nr, v_menu_id, in_emp_id, in_quan3);
+    tekst(in_menu_name3||' '||in_quan3||' szt.');
+  end zamowienie_3;
+  
+  procedure zamowienie_4 (in_or_nr orders.order_number%type,
+                        in_menu_name4 menu.dish_name%type,
+                        in_emp_id employees.employee_id%type,
+                        in_quan4 orders.quantity%type)
+  is
+    v_menu_id menu.menu_id%type;
+  begin
+    v_menu_id := f_menu_id(in_menu_name4);
+    
+    insert into orders (order_number, menu_id, employee_id, quantity)
+    values (in_or_nr, v_menu_id, in_emp_id, in_quan4);
+    tekst(in_menu_name4||' '||in_quan4||' szt.');
+  end zamowienie_4;
+  
+  procedure zamowienie_5 (in_or_nr orders.order_number%type,
+                        in_menu_name5 menu.dish_name%type,
+                        in_emp_id employees.employee_id%type,
+                        in_quan5 orders.quantity%type)
+  is
+    v_menu_id menu.menu_id%type;
+  begin
+    v_menu_id := f_menu_id(in_menu_name5);
+    
+    insert into orders (order_number, menu_id, employee_id, quantity)
+    values (in_or_nr, v_menu_id, in_emp_id, in_quan5);
+    tekst(in_menu_name5||' '||in_quan5||' szt.');
+  end zamowienie_5;
+  
+  procedure zamowienie_6 (in_or_nr orders.order_number%type,
+                        in_menu_name6 menu.dish_name%type,
+                        in_emp_id employees.employee_id%type,
+                        in_quan6 orders.quantity%type)
+  is
+    v_menu_id menu.menu_id%type;
+  begin
+    v_menu_id := f_menu_id(in_menu_name6);
+    
+    insert into orders (order_number, menu_id, employee_id, quantity)
+    values (in_or_nr, v_menu_id, in_emp_id, in_quan6);
+    tekst(in_menu_name6||' '||in_quan6||' szt.');
+  end zamowienie_6;
+  
+  procedure zamowienie_7 (in_or_nr orders.order_number%type,
+                        in_menu_name7 menu.dish_name%type,
+                        in_emp_id employees.employee_id%type,
+                        in_quan7 orders.quantity%type)
+  is
+    v_menu_id menu.menu_id%type;
+  begin
+    v_menu_id := f_menu_id(in_menu_name7);
+    
+    insert into orders (order_number, menu_id, employee_id, quantity)
+    values (in_or_nr, v_menu_id, in_emp_id, in_quan7);
+    tekst(in_menu_name7||' '||in_quan7||' szt.');
+  end zamowienie_7;
+  
+  procedure zamowienie_8 (in_or_nr orders.order_number%type,
+                        in_menu_name8 menu.dish_name%type,
+                        in_emp_id employees.employee_id%type,
+                        in_quan8 orders.quantity%type)
+  is
+    v_menu_id menu.menu_id%type;
+  begin
+    v_menu_id := f_menu_id(in_menu_name8);
+    
+    insert into orders (order_number, menu_id, employee_id, quantity)
+    values (in_or_nr, v_menu_id, in_emp_id, in_quan8);
+    tekst(in_menu_name8||' '||in_quan8||' szt.');
+  end zamowienie_8;
+  
+  procedure zamowienie_9 (in_or_nr orders.order_number%type,
+                        in_menu_name9 menu.dish_name%type,
+                        in_emp_id employees.employee_id%type,
+                        in_quan9 orders.quantity%type)
+  is
+    v_menu_id menu.menu_id%type;
+  begin
+    v_menu_id := f_menu_id(in_menu_name9);
+    
+    insert into orders (order_number, menu_id, employee_id, quantity)
+    values (in_or_nr, v_menu_id, in_emp_id, in_quan9);
+    tekst(in_menu_name9||' '||in_quan9||' szt.');
+  end zamowienie_9;
+  
+  procedure zamowienie_10 (in_or_nr orders.order_number%type,
+                        in_menu_name10 menu.dish_name%type,
+                        in_emp_id employees.employee_id%type,
+                        in_quan10 orders.quantity%type)
+  is
+    v_menu_id menu.menu_id%type;
+  begin
+    v_menu_id := f_menu_id(in_menu_name10);
+    
+    insert into orders (order_number, menu_id, employee_id, quantity)
+    values (in_or_nr, v_menu_id, in_emp_id, in_quan10);
+    tekst(in_menu_name10||' '||in_quan10||' szt.');
+  end zamowienie_10;
+  
+--procedura wstawiająca nowe zamówienie kożysta z 10 powyższych procedur
+  procedure zamowienie (in_or_nr orders.order_id%type,
+                        in_first employees.first_name%type,
+                        in_last employees.last_name%type,
+                        in_menu_name1 menu.dish_name%type,
+                        in_quan1 orders.quantity%type,
+                        in_menu_name2 menu.dish_name%type default null,
+                        in_quan2 orders.quantity%type default null,
+                        in_menu_name3 menu.dish_name%type default null,
+                        in_quan3 orders.quantity%type default null,
+                        in_menu_name4 menu.dish_name%type default null,
+                        in_quan4 orders.quantity%type default null,
+                        in_menu_name5 menu.dish_name%type default null,
+                        in_quan5 orders.quantity%type default null,
+                        in_menu_name6 menu.dish_name%type default null,
+                        in_quan6 orders.quantity%type default null,
+                        in_menu_name7 menu.dish_name%type default null,
+                        in_quan7 orders.quantity%type default null,
+                        in_menu_name8 menu.dish_name%type default null,
+                        in_quan8 orders.quantity%type default null,
+                        in_menu_name9 menu.dish_name%type default null,
+                        in_quan9 orders.quantity%type default null,
+                        in_menu_name10 menu.dish_name%type default null,
+                        in_quan10 orders.quantity%type default null)
+  is
+    v_or_nr orders.order_number%type;
+    v_dep departments.department_code%type;
+    v_menu_id menu.menu_id%type;
+    v_emp_id employees.employee_id%type;
+  begin
+    v_menu_id := f_menu_id(in_menu_name1);
+    v_emp_id := f_man_id(in_first, in_last);
+    
+    v_or_nr := in_or_nr;
+    if v_or_nr = 0 then v_or_nr := f_up_nr_or;
+    end if;
+  
+    v_dep := f_dep_code (in_first, in_last);
+    if v_dep not in ('KELN' , 'MENAG') then
+    raise_application_error(-20001, 'Tylko kelner może dodać zamówienie');
+    end if;
+   
+    tekst('Wstawiono zamówienie nr. '||v_or_nr||' przez '||in_first||' '||in_last||' składajace się z ');
+    
+    zamowienie_1(v_or_nr, in_menu_name1, v_emp_id, in_quan1);
+    zamowienie_2(v_or_nr, in_menu_name2, v_emp_id, in_quan2);
+    zamowienie_3(v_or_nr, in_menu_name3, v_emp_id, in_quan3);
+    zamowienie_4(v_or_nr, in_menu_name4, v_emp_id, in_quan4);
+    zamowienie_5(v_or_nr, in_menu_name5, v_emp_id, in_quan5);
+    zamowienie_6(v_or_nr, in_menu_name6, v_emp_id, in_quan6);
+    zamowienie_7(v_or_nr, in_menu_name7, v_emp_id, in_quan7);
+    zamowienie_8(v_or_nr, in_menu_name8, v_emp_id, in_quan8);
+    zamowienie_9(v_or_nr, in_menu_name9, v_emp_id, in_quan9);
+    zamowienie_10(v_or_nr, in_menu_name10, v_emp_id, in_quan10);
+  
+  exception
+    when no_data_found then null;
+  end zamowienie;
   
 end;
