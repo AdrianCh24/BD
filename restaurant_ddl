@@ -193,6 +193,10 @@ ALTER TABLE waiters
 ALTER TABLE warehouse
     ADD CONSTRAINT warehouse_units_fk FOREIGN KEY ( unit_code )
         REFERENCES units ( unit_code );
+        
+ALTER TABLE warehouse
+    ADD CONSTRAINT warehouse_products_fk FOREIGN KEY ( product_id )
+        REFERENCES products ( product_id );
 
 ALTER TABLE workplace_menu
     ADD CONSTRAINT workplace_menu_menu_fk FOREIGN KEY ( menu_id )
