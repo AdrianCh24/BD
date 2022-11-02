@@ -81,3 +81,20 @@ begin
   wstaw.dostawca ('pieczywo', '837 927 938', '83 0937 9837 9275 9272 8192 9286');
   wstaw.dostawca ('makarony', '387 937 927', '72 9376 9276 2726 9373 9202 2927');
 end;
+
+begin
+  wstaw.pozycja_menu('frytki', 6, 8);
+  wstaw.pozycja_menu('sałata cezar', 25, 8);
+  wstaw.pozycja_menu('sałata łosoś', 28, 8);
+  wstaw.pozycja_menu('krewetki w winie', 40, 23);
+  wstaw.pozycja_menu('spaghetti carbonara', 25, 8);
+  wstaw.pozycja_menu('pizza margarita', 20, 8);
+  wstaw.pozycja_menu('pizza salami', 24, 8);
+  wstaw.pozycja_menu('stek', 50, 8);
+  wstaw.pozycja_menu('wino', 12, 23);
+  wstaw.pozycja_menu('cola', 6, 23);
+  wstaw.pozycja_menu('sok pomarańczowy', 8, 23);
+  wstaw.pozycja_menu('burger', 30, 8);
+  wstaw.pozycja_menu('piwo', 10, 23);
+end;
+
