@@ -1,0 +1,74 @@
+-- dane do bazy 
+
+insert into departments (department_code, department_name)
+values ('BAR', 'barman');
+
+insert into departments (department_code, department_name)
+values ('KELN', 'kelner');
+
+insert into departments (department_code, department_name)
+values ('KSIEG', 'księgowy');
+
+insert into departments (department_code, department_name)
+values ('KUCH', 'kucharz');
+
+insert into departments (department_code, department_name)
+values ('MARK', 'marketing');
+
+insert into departments (department_code, department_name)
+values ('MENAG', 'menadzer');
+
+insert into workplace (workplace_code, workplace_name)
+values ('GRILL', 'grill');
+
+insert into workplace (workplace_code, workplace_name)
+values ('K_CIE', 'kuchnia ciepła');
+
+insert into workplace (workplace_code, workplace_name)
+values ('K_ZIM', 'kuchnia zimna');
+
+insert into workplace (workplace_code, workplace_name)
+values ('PIZZA', 'pizza');
+
+insert into workplace (workplace_code, workplace_name)
+values ('PROD', 'produkcja');
+
+--wstawione dane wykorzystują paczkę wstaw
+
+begin
+  wstaw.pracownik('Adrian', 'Chyliński', 91112409717, 'menadzer', 10000);
+  wstaw.pracownik('Lukasz', 'Wójcik', 87376937291, 'menadzer', 8000, 'Adrian', 'Chyliński');
+  wstaw.pracownik('Sebastian', 'Mały', 83649482741, 'kucharz', 5000, 'Lukasz', 'Wójcik');
+  wstaw.pracownik('Jarek', 'Mak', 94837493028, 'kucharz', 5100, 'Lukasz', 'Wójcik');
+  wstaw.pracownik('Tomek', 'Atomek', 87439847462, 'kucharz', 5200, 'Lukasz', 'Wójcik');
+  wstaw.pracownik('Magda', 'Skok', 84703394632, 'kucharz', 5000, 'Lukasz', 'Wójcik');
+  wstaw.pracownik('Tomek', 'Słoń', 87365109381, 'kucharz', 5200, 'Lukasz', 'Wójcik');
+  wstaw.pracownik('Lech', 'Koń', 8539374628, 'menadzer', 7000, 'Adrian', 'Chyliński');
+  wstaw.pracownik('Mirek', 'Bak', 94837749379, 'kelner', 4000, 'Lech', 'Koń');
+  wstaw.pracownik('Zygmunt', 'Lisowski', 84763894832, 'kelner', 4100, 'Lech', 'Koń');
+  wstaw.pracownik('Sylwia', 'Miła', 9348294736, 'kelner', 4000, 'Lech', 'Koń');
+  wstaw.pracownik('Ola', 'Kot', 92873639837, 'kelner', 4100, 'Lech', 'Koń');
+  wstaw.pracownik('Zbyszek', 'Kłak', 85937497531, 'menadzer', 6500, 'Adrian', 'Chyliński');
+  wstaw.pracownik('Monika', 'Mika', 85740974093, 'barman', 4500, 'Zbyszek', 'Kłak');
+  wstaw.pracownik('Jan', 'Kowalski', 85850983827, 'barman', 4700, 'Zbyszek', 'Kłak');
+  wstaw.pracownik('Michał', 'Kowalik', 89763908376, 'księgowy', 5000, 'Adrian', 'Chyliński');
+  wstaw.pracownik('Iwona', 'Szpak', 89649387643, 'menadzer', 6000, 'Adrian', 'Chyliński');
+  wstaw.pracownik('Maciek', 'Nowak', 92847389081, 'marketing', 4500, 'Iwona', 'Szpak');
+end;
+
+begin
+  wstaw.kucharz_stanowisko('Sebastian', 'Mały', 'grill');
+  wstaw.kucharz_stanowisko('Jarek', 'Mak', 'kuchnia ciepła');
+  wstaw.kucharz_stanowisko('Tomek', 'Atomek', 'kuchnia zimna');
+  wstaw.kucharz_stanowisko('Magda', 'Skok', 'pizza');
+  wstaw.kucharz_stanowisko('Tomek', 'Słoń', 'produkcja');
+end;
+
+begin
+  wstaw.dostawca ('makro', '643 893 948', '63 8494 9484 9474 4738 9447 9390');
+  wstaw.dostawca ('napoje', '648 947 038', '37 4848 4849 2373 9459 3847 2938');
+  wstaw.dostawca ('mięso', '485 948 947', '38 9476 8489 7268 9376 9292 8272');
+  wstaw.dostawca ('warzywa', '738 928 936', '82 9338 9282 8276 8292 9336 9286');
+  wstaw.dostawca ('pieczywo', '837 927 938', '83 0937 9837 9275 9272 8192 9286');
+  wstaw.dostawca ('makarony', '387 937 927', '72 9376 9276 2726 9373 9202 2927');
+end;
