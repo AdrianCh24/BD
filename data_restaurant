@@ -33,6 +33,15 @@ values ('PIZZA', 'pizza');
 insert into workplace (workplace_code, workplace_name)
 values ('PROD', 'produkcja');
 
+insert into units (unit_code, unit_name)
+values ('g', 'gramy');
+
+insert into units (unit_code, unit_name)
+values ('ml', 'mililitry');
+
+insert into units (unit_code, unit_name)
+values ('szt', 'sztuki');
+
 --wstawione dane wykorzystują paczkę wstaw
 
 begin
