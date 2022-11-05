@@ -1,0 +1,13 @@
+--procedura z której korzystam aby ułatwić sobie wywołanie dbms_output.put_line
+create or replace procedure tekst(in_tekst varchar2)
+is
+begin
+  dbms_output.put_line(in_tekst);
+end;
+
+--widok ułatwiający czytanie receptur dań
+create or replace view recipes_v as
+select m.dish_name, p.product_name, r.quantity, r.unit_code
+from menu m
+join recipes r on m.menu_id = r.menu_id
+join products p on r.product_id = p.product_id;
