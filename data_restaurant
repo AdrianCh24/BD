@@ -98,3 +98,109 @@ begin
   wstaw.pozycja_menu('piwo', 10, 23);
 end;
 
+declare
+  type typ_nt is table of varchar2(30);
+  kol_nt typ_nt := typ_nt(  'frytki',
+                            'piwo',
+                            'sałata',
+                            'majonez',
+                            'anchois',
+                            'parmezan',
+                            'pomidorki cherry',
+                            'bagietka',
+                            'kurczak',
+                            'łosoś',
+                            'oliwa',
+                            'krewetki',
+                            'wino',
+                            'masło',
+                            'spaghetti',
+                            'jajko',
+                            'guanciale',
+                            'maka',
+                            'pomidory pelati',
+                            'ser mozzarella',
+                            'bazylia',
+                            'salami',
+                            'wołowina stek',
+                            'cola',
+                            'pomarańcze',
+                            'bułka burger',
+                            'wołowina burger',
+                            'cebula czerwona',
+                            'pomidor',
+                            'ser gouda',
+                            'boczek',
+                            'ogórek konserwowy');
+begin
+  for i in kol_nt.first..kol_nt.last
+  loop
+    wstaw.produkt(kol_nt(i));
+  end loop;
+end;
+
+begin
+  wstaw.receptura('piwo',
+                    'piwo', 500, 'ml');
+  wstaw.receptura('frytki',
+                    'frytki', 200, 'g');
+  wstaw.receptura('sałata cezar',
+                    'sałata', 0.5, 'szt',
+                    'pomidorki cherry', 100, 'g',
+                    'anchois', 3, 'g',
+                    'parmezan', 50, 'g',
+                    'majonez', 50, 'g',
+                    'bagietka', 0.5, 'szt',
+                    'kurczak', 100, 'g');
+  wstaw.receptura('sałata łosoś',
+                    'sałata', 0.5, 'g',
+                    'pomidorki cherry', 100, 'g',
+                    'oliwa', 50, 'ml',
+                    'bagietka', 0.5, 'szt',
+                    'cebula czerwona', 50, 'g',
+                    'łosoś', 100, 'g');
+  wstaw.receptura('krewetki w winie',
+                    'krewetki', 200, 'g',
+                    'bagietka', 0.5, 'szt',
+                    'masło', 30, 'g',
+                    'oliwa', 50, 'ml',
+                    'pomidorki cherry', 100, 'g',
+                    'wino', 150, 'ml');
+  wstaw.receptura('spaghetti carbonara',
+                    'spaghetti', 150, 'g',
+                    'parmezan', 100, 'g',
+                    'jajko', 1, 'szt',
+                    'guanciale', 50, 'g');
+  wstaw.receptura('pizza margarita',
+                    'maka', 200, 'g',
+                    'pomidory pelati', 100, 'g',
+                    'ser mozzarella', 100, 'g',
+                    'bazylia', 10, 'g');
+  wstaw.receptura('pizza salami',
+                    'maka', 200, 'g',
+                    'pomidory pelati', 100, 'g',
+                    'ser mozzarella', 100, 'g',
+                    'salami', 100, 'g');
+  wstaw.receptura('stek',
+                    'wołowina stek', 250, 'g',
+                    'frytki', 200, 'g',
+                    'sałata', 0.1, 'szt',
+                    'pomidorki cherry', 50, 'g',
+                    'oliwa', 50, 'g');
+  wstaw.receptura('wino',
+                    'wino', 150, 'ml');
+  wstaw.receptura('cola',
+                    'cola', 200, 'ml');
+  wstaw.receptura('sok pamarańczowy',
+                    'pomarańcze', 300, 'g');
+  wstaw.receptura('burger',
+                    'bułka burger', 1, 'szt',
+                    'wołowina burger', 200, 'g',
+                    'sałata', 0.1, 'szt',
+                    'majonez', 30, 'g',
+                    'pomidor', 50, 'g',
+                    'ogórek konserwowy', 20, 'g',
+                    'cebula czerwona', 10, 'g',
+                    'ser gouda', 20, 'g',
+                    'boczek', 50, 'g');
+end;
