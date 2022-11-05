@@ -204,3 +204,15 @@ begin
                     'ser gouda', 20, 'g',
                     'boczek', 50, 'g');
 end;
+
+begin
+  wstaw.menu_stanowisko('frytki', 'grill');
+  wstaw.menu_stanowisko('stek', 'grill');
+  wstaw.menu_stanowisko('burger', 'grill');
+  wstaw.menu_stanowisko('pizza margarita', 'pizza');
+  wstaw.menu_stanowisko('pizza salami', 'pizza');
+  wstaw.menu_stanowisko('sałata cezar', 'kuchnia zimna');
+  wstaw.menu_stanowisko('sałata łosoś', 'kuchnia zimna');
+  wstaw.menu_stanowisko('krewetki w winie', 'kuchnia ciepła');
+  wstaw.menu_stanowisko('spaghetti carbonara', 'kuchnia ciepła');
+end;
