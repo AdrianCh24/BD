@@ -1,0 +1,21 @@
+create or replace package body pokaz
+is
+  
+  procedure receptura (in_dish varchar2)
+  is
+    type nt_recipes is table of recipes_v %rowtype;
+    kol_nt nt_recipes := nt_recipes();
+  begin
+    select *
+    bulk collect into kol_nt
+    from recipes_v
+    where dish_name = in_dish;
+
+      tekst('Receptura na '||in_dish);
+    for i in kol_nt.first..kol_nt.last
+    loop
+      tekst(kol_nt(i).product_name||' '||kol_nt(i).quantity||kol_nt(i).unit_code);
+    end loop;
+  end receptura;
+  
+end;
