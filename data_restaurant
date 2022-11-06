@@ -186,7 +186,8 @@ begin
                     'frytki', 200, 'g',
                     'sałata', 0.1, 'szt',
                     'pomidorki cherry', 50, 'g',
-                    'oliwa', 50, 'g');
+                    'oliwa', 50, 'ml',
+		                'masło', 20, 'g');
   wstaw.receptura('wino',
                     'wino', 150, 'ml');
   wstaw.receptura('cola',
