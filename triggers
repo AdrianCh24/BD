@@ -1,0 +1,34 @@
+create or replace trigger bi_delivery_trg
+before insert on delivery
+for each row
+declare
+  v_count number;
+begin
+  select count(product_id)
+  into v_count
+  from warehouse
+  where product_id = :new.product_id;
+
+  if v_count = 0 then
+    insert into warehouse(product_id, quantity, unit_code)
+    values (:new.product_id, 0, :new.unit_code);
+  end if;
+end;
+
+create or replace trigger ai_delivery_trg
+after insert on delivery
+for each row
+declare
+  v_quan number;
+begin
+  select quantity
+  into v_quan
+  from warehouse
+  where product_id = :new.product_id;
+  
+  v_quan := :new.quantity + v_quan;
+  
+  update warehouse
+  set quantity = v_quan
+  where product_id = :new.product_id;
+end;
