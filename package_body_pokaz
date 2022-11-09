@@ -14,7 +14,7 @@ is
       tekst('Receptura na '||in_dish);
     for i in kol_nt.first..kol_nt.last
     loop
-      tekst(kol_nt(i).product_name||' '||kol_nt(i).quantity||kol_nt(i).unit_code);
+      tekst(kol_nt(i).product_name||' '||to_char(kol_nt(i).quantity, '990.9')||kol_nt(i).unit_code);
     end loop;
   end receptura;
   
