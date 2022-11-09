@@ -392,6 +392,9 @@ is
     select max(delivery_number)
     into v_id
     from delivery;
+    
+    if v_id is null then v_id := 0;
+    end if;
   
     return v_id + 1;
   end f_up_id_dv;
