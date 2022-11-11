@@ -435,7 +435,13 @@ is
     v_unit varchar2(5);
   begin
     v_prod_id := f_prod_id(in_prod_name1);
-    v_kg_l := f_kg_l(in_qan1);
+    
+    if in_unit1 in ('l', 'kg') then
+      v_kg_l := f_kg_l(in_qan1);
+    elsif in_unit1 in ('szt') then
+      v_kg_l := in_qan1;
+    end if;
+    
     v_unit := f_up_unit(in_unit1);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
@@ -457,7 +463,13 @@ is
     v_unit varchar2(5);
   begin
     v_prod_id := f_prod_id(in_prod_name2);
-    v_kg_l := f_kg_l(in_qan2);
+    
+    if in_unit2 in ('l', 'kg') then
+      v_kg_l := f_kg_l(in_qan2);
+    elsif in_unit2 in ('szt') then
+      v_kg_l := in_qan2;
+    end if;
+    
     v_unit := f_up_unit(in_unit2);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
@@ -479,7 +491,13 @@ is
     v_unit varchar2(5);
   begin
     v_prod_id := f_prod_id(in_prod_name3);
-    v_kg_l := f_kg_l(in_qan3);
+    
+    if in_unit3 in ('l', 'kg') then
+      v_kg_l := f_kg_l(in_qan3);
+    elsif in_unit3 in ('szt') then
+      v_kg_l := in_qan3;
+    end if;
+    
     v_unit := f_up_unit(in_unit3);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
@@ -501,7 +519,13 @@ is
     v_unit varchar2(5);
   begin
     v_prod_id := f_prod_id(in_prod_name4);
-    v_kg_l := f_kg_l(in_qan4);
+    
+    if in_unit4 in ('l', 'kg') then
+      v_kg_l := f_kg_l(in_qan4);
+    elsif in_unit4 in ('szt') then
+      v_kg_l := in_qan4;
+    end if;
+    
     v_unit := f_up_unit(in_unit4);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
@@ -523,7 +547,13 @@ is
     v_unit varchar2(5);
   begin
     v_prod_id := f_prod_id(in_prod_name5);
-    v_kg_l := f_kg_l(in_qan5);
+    
+    if in_unit5 in ('l', 'kg') then
+      v_kg_l := f_kg_l(in_qan5);
+    elsif in_unit5 in ('szt') then
+      v_kg_l := in_qan5;
+    end if;
+    
     v_unit := f_up_unit(in_unit5);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
@@ -545,7 +575,13 @@ is
     v_unit varchar2(5);
   begin
     v_prod_id := f_prod_id(in_prod_name6);
-    v_kg_l := f_kg_l(in_qan6);
+    
+    if in_unit6 in ('l', 'kg') then
+      v_kg_l := f_kg_l(in_qan6);
+    elsif in_unit6 in ('szt') then
+      v_kg_l := in_qan6;
+    end if;
+    
     v_unit := f_up_unit(in_unit6);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
@@ -567,7 +603,13 @@ is
     v_unit varchar2(5);
   begin
     v_prod_id := f_prod_id(in_prod_name7);
-    v_kg_l := f_kg_l(in_qan7);
+    
+    if in_unit7 in ('l', 'kg') then
+      v_kg_l := f_kg_l(in_qan7);
+    elsif in_unit7 in ('szt') then
+      v_kg_l := in_qan7;
+    end if;
+    
     v_unit := f_up_unit(in_unit7);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
@@ -589,7 +631,13 @@ is
     v_unit varchar2(5);
   begin
     v_prod_id := f_prod_id(in_prod_name8);
-    v_kg_l := f_kg_l(in_qan8);
+    
+    if in_unit8 in ('l', 'kg') then
+      v_kg_l := f_kg_l(in_qan8);
+    elsif in_unit8 in ('szt') then
+      v_kg_l := in_qan8;
+    end if;
+    
     v_unit := f_up_unit(in_unit8);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
@@ -611,7 +659,13 @@ is
     v_unit varchar2(5);
   begin
     v_prod_id := f_prod_id(in_prod_name9);
-    v_kg_l := f_kg_l(in_qan9);
+    
+    if in_unit9 in ('l', 'kg') then
+      v_kg_l := f_kg_l(in_qan9);
+    elsif in_unit9 in ('szt') then
+      v_kg_l := in_qan9;
+    end if;
+    
     v_unit := f_up_unit(in_unit9);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
@@ -633,7 +687,13 @@ is
     v_unit varchar2(5);
   begin
     v_prod_id := f_prod_id(in_prod_name10);
-    v_kg_l := f_kg_l(in_qan10);
+    
+    if in_unit10 in ('l', 'kg') then
+      v_kg_l := f_kg_l(in_qan10);
+    elsif in_unit10 in ('szt') then
+      v_kg_l := in_qan10;
+    end if;
+    
     v_unit := f_up_unit(in_unit10);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
