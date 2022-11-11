@@ -31,4 +31,7 @@ begin
   update warehouse
   set quantity = v_quan
   where product_id = :new.product_id;
+  
+  tekst('=============================');
+  tekst('magazyn został zaktualizowany');
 end;
