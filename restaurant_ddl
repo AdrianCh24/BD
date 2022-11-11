@@ -116,7 +116,7 @@ ALTER TABLE waiters ADD CONSTRAINT waiters_pk PRIMARY KEY ( waiter_id );
 
 CREATE TABLE warehouse (
     product_id INTEGER NOT NULL,
-    quantity   NUMBER(7) NOT NULL,
+    quantity   NUMBER(7,1) NOT NULL,
     unit_code  VARCHAR2(3) NOT NULL
 );
 
