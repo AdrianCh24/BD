@@ -25,3 +25,9 @@ select o.order_id, o.order_number, m.dish_name, e.first_name, e.last_name, o.qua
 from orders o
 join menu m on o.menu_id = m.menu_id
 join employees e on o.employee_id = e.employee_id;
+
+--widok ułatwiający czytanie magazynu
+create or replace view warehouse_v as
+select p.product_name, w.quantity, w.unit_code
+from warehouse w
+join products p on w.product_id = p.product_id;
