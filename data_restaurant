@@ -217,3 +217,50 @@ begin
   wstaw.menu_stanowisko('krewetki w winie', 'kuchnia ciepła');
   wstaw.menu_stanowisko('spaghetti carbonara', 'kuchnia ciepła');
 end;
+
+begin
+  wstaw.dostawa('napoje', '14/11/22/01',
+                'cola', 20, 'l', 60, 23,
+                'piwo', 50, 'l', 250, 23,
+                'wino', 20, 'l', 400, 23);
+  
+  wstaw.dostawa('mięso', '14/11/22/02',
+                'boczek', 5, 'kg', 150, 8,
+                'guanciale', 5, 'kg', 200, 8,
+                'krewetki', 10, 'kg', 800, 23,
+                'kurczak', 10, 'kg', 250, 8,
+                'salami', 5, 'kg', 200, 8,
+                'łosoś', 10, 'kg', 600, 8,
+                'wołowina burger', 20, 'kg', 500, 8,
+                'wołowina stek', 20, 'kg', 1000, 8);
+                
+  wstaw.dostawa('warzywa', '14/11/22/03',
+                'bazylia', 1, 'kg', 50, 8,
+                'cebula czerwona', 3, 'kg', 15, 8,
+                'pomarańcze', 20, 'kg', 100, 8,
+                'pomidor', 10, 'kg', 70, 8,
+                'pomidorki cherry', 5, 'kg', 70, 8,
+                'sałata', 20, 'szt', 80, 8);
+                
+  wstaw.dostawa('pieczywo', '14/11/22/04',
+                'bagietka', 30, 'szt', 60, 8,
+                'bułka burger', 50, 'szt', 100, 8);
+                
+  wstaw.dostawa('makarony', '14/11/22/05',
+                'spaghetti', 10, 'kg', 200, 8);
+                
+  wstaw.dostawa('makro', '14/11/22/06',
+                'anchois', 0.2, 'kg', 40, 23,
+                'frytki', 50, 'kg', 250, 8,
+                'jajko', 60, 'szt', 30, 8,
+                'majonez', 3, 'kg', 50, 8,
+                'maka', 100, 'kg', 250, 8,
+                'masło', 5, 'kg', 200, 8,
+                'ogórek konserwowy', 5, 'kg', 100, 8,
+                'oliwa', 10, 'l', 200, 8,
+                'parmezan', 10, 'kg', 700, 8);
+  wstaw.dostawa('makro', '14/11/22/06',
+                'pomidory pelati', 50, 'kg', 400, 8,
+                'ser gouda', 10, 'kg', 300, 8,
+                'ser mozzarella', 20, 'kg', 600, 8);
+end;
