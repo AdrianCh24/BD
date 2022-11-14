@@ -11,3 +11,17 @@ select m.dish_name, p.product_name, r.quantity, r.unit_code
 from menu m
 join recipes r on m.menu_id = r.menu_id
 join products p on r.product_id = p.product_id;
+
+--widok ułatwiający czytanie dostaw
+create or replace view delivery_v as
+select d.delivery_id, d.delivery_number, p.product_name, d.quantity, d.unit_code, d.product_price, d.vat, s.supplier_name, d.invoice_number
+from delivery d
+join products p on d.product_id = p.product_id
+join suppliers s on d.supplier_id = s.supplier_id;
+
+--widok ułatwiający czytanie zamówień
+create or replace view order_v as
+select o.order_id, o.order_number, m.dish_name, e.first_name, e.last_name, o.quantity
+from orders o
+join menu m on o.menu_id = m.menu_id
+join employees e on o.employee_id = e.employee_id;
