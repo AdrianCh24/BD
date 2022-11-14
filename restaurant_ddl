@@ -17,7 +17,8 @@ CREATE TABLE delivery (
     product_price   NUMBER(7) NOT NULL,
     vat             NUMBER(2),
     supplier_id     INTEGER NOT NULL,
-    invoice_number  VARCHAR2(20)
+    invoice_number  VARCHAR2(20),
+    delivery_date   DATE
 );
 
 ALTER TABLE delivery ADD CONSTRAINT delivery_pk PRIMARY KEY ( delivery_id );
