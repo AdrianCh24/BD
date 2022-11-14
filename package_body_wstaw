@@ -442,6 +442,10 @@ is
       v_kg_l := in_qan1;
     end if;
     
+    if in_vat1 not in (0, 8, 23) then
+      raise_application_error (-20001, 'Wartość podatku vat powinien wynosić 0, 8 lub 23%');
+    end if;
+    
     v_unit := f_up_unit(in_unit1);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
@@ -468,6 +472,10 @@ is
       v_kg_l := f_kg_l(in_qan2);
     elsif in_unit2 in ('szt') then
       v_kg_l := in_qan2;
+    end if;
+    
+    if in_vat2 not in (0, 8, 23) then
+      raise_application_error (-20001, 'Wartość podatku vat powinien wynosić 0, 8 lub 23%');
     end if;
     
     v_unit := f_up_unit(in_unit2);
@@ -498,6 +506,10 @@ is
       v_kg_l := in_qan3;
     end if;
     
+    if in_vat3 not in (0, 8, 23) then
+      raise_application_error (-20001, 'Wartość podatku vat powinien wynosić 0, 8 lub 23%');
+    end if;
+    
     v_unit := f_up_unit(in_unit3);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
@@ -524,6 +536,10 @@ is
       v_kg_l := f_kg_l(in_qan4);
     elsif in_unit4 in ('szt') then
       v_kg_l := in_qan4;
+    end if;
+    
+    if in_vat4 not in (0, 8, 23) then
+      raise_application_error (-20001, 'Wartość podatku vat powinien wynosić 0, 8 lub 23%');
     end if;
     
     v_unit := f_up_unit(in_unit4);
@@ -554,6 +570,10 @@ is
       v_kg_l := in_qan5;
     end if;
     
+    if in_vat5 not in (0, 8, 23) then
+      raise_application_error (-20001, 'Wartość podatku vat powinien wynosić 0, 8 lub 23%');
+    end if;
+    
     v_unit := f_up_unit(in_unit5);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
@@ -580,6 +600,10 @@ is
       v_kg_l := f_kg_l(in_qan6);
     elsif in_unit6 in ('szt') then
       v_kg_l := in_qan6;
+    end if;
+    
+    if in_vat6 not in (0, 8, 23) then
+      raise_application_error (-20001, 'Wartość podatku vat powinien wynosić 0, 8 lub 23%');
     end if;
     
     v_unit := f_up_unit(in_unit6);
@@ -610,6 +634,10 @@ is
       v_kg_l := in_qan7;
     end if;
     
+    if in_vat7 not in (0, 8, 23) then
+      raise_application_error (-20001, 'Wartość podatku vat powinien wynosić 0, 8 lub 23%');
+    end if;
+    
     v_unit := f_up_unit(in_unit7);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
@@ -636,6 +664,10 @@ is
       v_kg_l := f_kg_l(in_qan8);
     elsif in_unit8 in ('szt') then
       v_kg_l := in_qan8;
+    end if;
+    
+    if in_vat8 not in (0, 8, 23) then
+      raise_application_error (-20001, 'Wartość podatku vat powinien wynosić 0, 8 lub 23%');
     end if;
     
     v_unit := f_up_unit(in_unit8);
@@ -666,6 +698,10 @@ is
       v_kg_l := in_qan9;
     end if;
     
+    if in_vat9 not in (0, 8, 23) then
+      raise_application_error (-20001, 'Wartość podatku vat powinien wynosić 0, 8 lub 23%');
+    end if;
+    
     v_unit := f_up_unit(in_unit9);
     
     insert into delivery (delivery_number, product_id, quantity, unit_code, product_price, vat, supplier_id, invoice_number)
@@ -692,6 +728,10 @@ is
       v_kg_l := f_kg_l(in_qan10);
     elsif in_unit10 in ('szt') then
       v_kg_l := in_qan10;
+    end if;
+    
+    if in_vat10 not in (0, 8, 23) then
+      raise_application_error (-20001, 'Wartość podatku vat powinien wynosić 0, 8 lub 23%');
     end if;
     
     v_unit := f_up_unit(in_unit10);
