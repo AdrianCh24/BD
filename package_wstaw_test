@@ -1,0 +1,54 @@
+--test procedur z paczki wstaw
+
+--podanie nieprawidłowej stawki vat (w tym przypadku 7) powoduje błąd o treści 'Wartość podatku vat powinien wynosić 0, 8 lub 23%'
+begin
+  wstaw.dostawa('makro', '14/11/22/1234',
+                'cola', 10, 'l', 30, 7);
+end;
+
+--podanie ilości produktu w litrach powoduje przemnożenie przez 1000 zapisanie wartości w ml i prawidłowe zapisanie danej do tabeli
+begin
+  wstaw.dostawa('makro', '14/11/22/1234',
+                'cola', 10, 'l', 30, 23);
+end;
+/
+select * from delivery;
+
+--podanie ilości w szt zapisuje prawidłowo daną do tabeli nie modyfikując danej 
+begin
+  wstaw.dostawa('makro', '14/11/22/1234',
+                'sałata', 10, 'szt', 30, 8);
+end;
+/
+select * from delivery;
+
+--podanie osoby która nie pracuje w dziale kucharz powoduje błąd o treści 'Podana osoba nie jest kucharzem'
+begin
+  wstaw.kucharz_stanowisko('Mirek', 'Bak', 'grill');
+end;
+
+--podanie osoby która nie jest menadzerem powoduje błąd o treści 'Pracownik Mirek Bak nie jest menagerem nie może być przypisany jako przełożony'
+begin
+  wstaw.pracownik('Kuba', 'Gózik', 93873748372, 'kelner', 4000, 'Mirek', 'Bak');
+end;
+
+--podanie imienia i nazwiska osoby która nie jest pracownikiem jako przełożony powoduje błąd o treści 'Przełożony Mirek Kłak nie istnieje'
+begin
+  wstaw.pracownik('Kuba', 'Gózik', 93873748372, 'kelner', 4000, 'Mirek', 'Kłak');
+end;
+
+--nie podanie nazwy przełożonego prawidłowo wstawia rekord do tabeli. Kolumna menager_id może zawierać wartość null
+begin
+  wstaw.pracownik('Kuba', 'Gózik', 93873748372, 'kelner', 4000);
+end;
+
+--podanie osoby która nie pracuje na stanowisku kelner (lub menadzer) powoduje błąd o treści 'Tylko kelner może dodać zamówienie'
+--podanie 0 jako numer zamówienia sam generuje następną liczbę 
+begin
+  wstaw.zamowienie(0, 'Jarek', 'Mak', 'cola', 2);
+end;
+
+--jeśli chcemy dodać zamówienie do już istniejącego zamówienia zamiast zera wpisujemy nr już istaniejącego zamówienia
+begin
+  wstaw.zamowienie(1, 'Jarek', 'Mak', 'cola', 2);
+end;
