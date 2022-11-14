@@ -264,3 +264,32 @@ begin
                 'ser gouda', 10, 'kg', 300, 8,
                 'ser mozzarella', 20, 'kg', 600, 8);
 end;
+
+begin
+  wstaw.zamowienie(0, 'Mirek', 'Bak',
+                    'sałata cezar', 1,
+                    'spaghetti carbonara', 1,
+                    'krewetki w winie', 2,
+                    'wino', 2);
+                    
+  wstaw.zamowienie(0, 'Zygmunt', 'Lisowski',
+                    'burger', 2,
+                    'stek', 1,
+                    'sałata łosoś', 1,
+                    'piwo', 2,
+                    'sok pomarańczowy', 1,
+                    'cola', 1);
+                    
+  wstaw.zamowienie(0, 'Sylwia', 'Miła',
+                    'pizza margarita', 1,
+                    'sałata łosoś', 1,
+                    'stek', 2,
+                    'wino', 2);
+                    
+  wstaw.zamowienie(0, 'Ola', 'Kot',
+                    'frytki', 2,
+                    'sok pomarańczowy', 2,
+                    'pizza salami', 1,
+                    'burger', 2,
+                    'piwo', 2);
+end;
