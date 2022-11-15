@@ -1,0 +1,31 @@
+--body paczki trg_a_job 
+create or replace package body trg_a_job
+is
+--procedura która aktualizuje magazyn po wstawieniu zamówienia wykorzystywana przez trigger
+  procedure orders
+  is
+    type quan_rt is record(product number,
+                        quan number);
+    type kol_nt is table of quan_rt;
+    nt_order kol_nt;
+    v_order_id number;
+  begin
+    select max(order_id)
+    into v_order_id
+    from orders;
+
+    select r.product_id, r.quantity * o.quantity
+    bulk collect into nt_order
+    from orders o
+    join recipes r on o.menu_id = r.menu_id
+    where o.order_id = v_order_id;
+
+    for i in nt_order.first..nt_order.last
+    loop
+      update warehouse
+      set quantity = quantity - nt_order(i).quan
+      where product_id = nt_order(i).product;
+    end loop;
+  end orders;
+
+end;
