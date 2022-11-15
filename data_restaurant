@@ -192,7 +192,7 @@ begin
                     'wino', 150, 'ml');
   wstaw.receptura('cola',
                     'cola', 200, 'ml');
-  wstaw.receptura('sok pamarańczowy',
+  wstaw.receptura('sok pomarańczowy',
                     'pomarańcze', 300, 'g');
   wstaw.receptura('burger',
                     'bułka burger', 1, 'szt',
