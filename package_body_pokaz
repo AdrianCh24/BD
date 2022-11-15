@@ -18,4 +18,29 @@ is
     end loop;
   end receptura;
   
+  procedure magazyn
+  is
+    type kol_nt is table of warehouse_v%rowtype;
+    nt_warehouse kol_nt := kol_nt();
+  begin
+    select *
+    bulk collect into nt_warehouse
+    from warehouse_v;
+  
+    for i in nt_warehouse.first..nt_warehouse.last
+    loop
+      if nt_warehouse(i).unit_code in ('g', 'ml') then
+        nt_warehouse(i).quantity := nt_warehouse(i).quantity / 1000;
+      end if;
+    
+      if nt_warehouse(i).unit_code in ('g') then
+        nt_warehouse(i).unit_code := 'kg';
+      elsif nt_warehouse(i).unit_code in ('ml') then
+        nt_warehouse(i).unit_code := 'l';
+      end if;
+    
+      tekst(nt_warehouse(i).product_name||' '||nt_warehouse(i).quantity||nt_warehouse(i).unit_code);
+    end loop;
+  end magazyn;
+  
 end;
