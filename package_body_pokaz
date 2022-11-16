@@ -84,6 +84,55 @@ is
     end loop;
   
     tekst('Koszt produkcji '||in_dish||' to '||v_suma||'zł');
-    end;
+  end koszt;
     
+  procedure koszt (in_dish varchar2,
+                    out_suma out number)
+  is
+    type rt_type is record (prod_id number,
+                            quan number);
+    type kol_nt is table of rt_type;
+    nt_recipes kol_nt := kol_nt();
+    v_prod_price number;
+    v_suma number := 0;
+    v_menu_id number;
+  begin
+    v_menu_id := f_menu_id(in_dish);
+
+    select product_id, quantity
+    bulk collect into nt_recipes
+    from recipes
+    where menu_id = v_menu_id;
+  
+    for i in nt_recipes.first..nt_recipes.last
+    loop
+      select avg(product_price/quantity)
+      into v_prod_price
+      from delivery
+      where product_id = nt_recipes(i).prod_id;
+    
+      v_suma := v_suma + (v_prod_price * nt_recipes(i).quan);
+    end loop;
+      out_suma := v_suma;
+    tekst('Koszt produkcji '||in_dish||' to '||round(v_suma,2)||'zł');
+  end koszt;
+  
+--procedura licząca cenę jaką powinny kosztować dania jeśli koszt ich wyprodukowania to 30% wartości + vat
+  procedure wartosc (in_dish varchar2)
+  is
+    v_suma number;
+    v_vat number;
+  begin
+    select vat
+    into v_vat
+    from menu
+    where dish_name = in_dish;
+  
+    v_vat := 1 + (v_vat/100);
+
+    koszt(in_dish, v_suma);
+  
+    v_suma := v_suma *3.35 * v_vat;
+    tekst('Cena '||in_dish||' powinna wynosić '||round(v_suma));
+  end wartosc;
 end;
