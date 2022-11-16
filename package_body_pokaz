@@ -1,5 +1,15 @@
 create or replace package body pokaz
 is
+--pomoc w korzystaniu z paczki pokaz
+  procedure pomoc
+  is
+  begin
+    tekst('Witamy w pomocy dla paczki pokaz jeśli chcesz pokazać');
+    tekst('-recepture pokaz.receptura(nazwa dania)');
+    tekst('-stan magazynowy pokaz.magazyn');
+    tekst('-koszt produkcji pokaz.koszt(nazwa dania)');
+    tekst('-wartość adekwatna dania pokaz.wartosc(nazwa dania)');
+  end pomoc;
   
   procedure receptura (in_dish varchar2)
   is
