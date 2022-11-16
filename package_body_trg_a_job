@@ -51,4 +51,32 @@ is
     --delete from orders;
   end waiter_profit;
   
+  procedure production
+  is
+    type rt_type is record (suma number,
+                            wpc workplace.workplace_code%type);
+    rt_prod rt_type;
+  
+    type kol_nt is table of number;
+    nt_menu kol_nt := kol_nt();
+  begin
+    select menu_id
+    bulk collect into nt_menu
+    from workplace_menu;
+  
+    for i in nt_menu.first..nt_menu.last
+    loop
+      select sum(o.quantity), w.workplace_code
+      into rt_prod
+      from orders o
+      join workplace_menu w on o.menu_id = w.menu_id
+      join cooks c on w.workplace_code = c.workplace_code
+      where w.menu_id = nt_menu(i)
+      group by w.workplace_code;
+    
+      insert into workplace_production (workplace_code, date_work, menu_id, quantity)
+      values (rt_prod.wpc, sysdate, nt_menu(i), rt_prod.suma);
+    end loop;
+  end production;
+  
 end;
