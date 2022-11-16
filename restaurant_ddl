@@ -139,6 +139,16 @@ CREATE TABLE workplace_menu (
 
 ALTER TABLE workplace_menu ADD CONSTRAINT workplace_menu_pk PRIMARY KEY ( menu_id );
 
+CREATE TABLE workplace_production (
+	workplace_id 	INTEGER GENERATED ALWAYS AS IDENTITY NOT NULL,
+	workplace_code 	VARCHAR2(5) NOT NULL,
+	date_work 		DATE,
+	menu_id 		INTEGER NOT NULL,
+	quantity 		NUMBER(3)
+);
+
+ALTER TABLE workplace_production ADD CONSTRAINT workplace_production_pk PRIMARY KEY ( workplace_id );
+
 ALTER TABLE cooks
     ADD CONSTRAINT cooks_employees_fk FOREIGN KEY ( employee_id )
         REFERENCES employees ( employee_id );
@@ -206,3 +216,11 @@ ALTER TABLE workplace_menu
 ALTER TABLE workplace_menu
     ADD CONSTRAINT workplace_menu_workplace_fk FOREIGN KEY ( workplace_code )
         REFERENCES workplace ( workplace_code );
+        
+ALTER TABLE workplace_production
+    ADD CONSTRAINT workplace_production_workplace_fk FOREIGN KEY ( workplace_code )
+        REFERENCES workplace ( workplace_code );
+        
+ALTER TABLE workplace_production
+    ADD CONSTRAINT workplace_production_menu_fk FOREIGN KEY ( menu_id )
+        REFERENCES menu ( menu_id );
