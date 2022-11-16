@@ -43,4 +43,47 @@ is
     end loop;
   end magazyn;
   
+  function f_menu_id (in_dish_name menu.dish_name%type) return number
+  is
+    v_menu_id menu.menu_id%type;
+  begin
+    select menu_id
+    into v_menu_id
+    from menu
+    where dish_name = in_dish_name;
+
+    return v_menu_id;
+  end f_menu_id;
+  
+--procedura wypiczająca koszt produkcji wybranego dania na podstawie średniej ceny zakupionego towaru
+  procedure koszt (in_dish varchar2)
+  is
+    type rt_type is record (prod_id number,
+                            quan number);
+    type kol_nt is table of rt_type;
+    nt_recipes kol_nt := kol_nt();
+    v_prod_price number;
+    v_suma number := 0;
+    v_menu_id number;
+  begin
+    v_menu_id := f_menu_id(in_dish);
+
+    select product_id, quantity
+    bulk collect into nt_recipes
+    from recipes
+    where menu_id = v_menu_id;
+  
+    for i in nt_recipes.first..nt_recipes.last
+    loop
+      select avg(product_price/quantity)
+      into v_prod_price
+      from delivery
+      where product_id = nt_recipes(i).prod_id;
+    
+      v_suma := v_suma + (v_prod_price * nt_recipes(i).quan);
+    end loop;
+  
+    tekst('Koszt produkcji '||in_dish||' to '||v_suma||'zł');
+    end;
+    
 end;
