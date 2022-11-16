@@ -51,6 +51,7 @@ is
     --delete from orders;
   end waiter_profit;
   
+--procedura mająca podliczyć sumę dań wydanych przez każde ze stanowisk kucharzy wykorzystywana przez joba uruchamiającego się po zamknięciu kuchni
   procedure production
   is
     type rt_type is record (suma number,
