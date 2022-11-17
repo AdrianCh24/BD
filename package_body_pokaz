@@ -9,6 +9,8 @@ is
     tekst('-stan magazynowy pokaz.magazyn');
     tekst('-koszt produkcji pokaz.koszt(nazwa dania)');
     tekst('-wartość adekwatna dania pokaz.wartosc(nazwa dania)');
+    tekst('-przewidywane zejście dań pokaz.zejscie_dan');
+    tekst('-listę zakupów pokaz.lista_zakupow');
   end pomoc;
   
   procedure receptura (in_dish varchar2)
