@@ -31,3 +31,88 @@ create or replace view warehouse_v as
 select p.product_name, w.quantity, w.unit_code
 from warehouse w
 join products p on w.product_id = p.product_id;
+
+--funkcja wykorzystywana w procedurze poniżej
+create or replace function f_menu_id (in_dish_name menu.dish_name%type) return number
+  is
+    v_menu_id menu.menu_id%type;
+  begin
+    select menu_id
+    into v_menu_id
+    from menu
+    where dish_name = in_dish_name;
+
+    return v_menu_id;
+  end f_menu_id;
+
+--procedura dodająca inserty do tabeli workplace_production w celu przeprowadzeniach testów 
+create or replace procedure test_insert
+is
+begin
+insert into workplace_production (workplace_code, date_work, menu_id, quantity)
+select 'GRILL', sysdate, f_menu_id('stek'), 20 from dual union all
+select 'GRILL', sysdate, f_menu_id('burger'), 34 from dual union all
+select 'GRILL', sysdate, f_menu_id('frytki'), 13 from dual union all
+select 'K_CIE', sysdate, f_menu_id('krewetki w winie'), 7 from dual union all
+select 'K_CIE', sysdate, f_menu_id('spaghetti carbonara'), 15 from dual union all
+select 'K_ZIM', sysdate, f_menu_id('sałata cezar'), 15 from dual union all
+select 'K_ZIM', sysdate, f_menu_id('sałata łosoś'), 8 from dual union all
+select 'PIZZA', sysdate, f_menu_id('pizza margarita'), 21 from dual union all
+select 'PIZZA', sysdate, f_menu_id('pizza salami'), 17 from dual union all
+select 'GRILL', sysdate - 1, f_menu_id('stek'), 18 from dual union all
+select 'GRILL', sysdate - 1, f_menu_id('burger'), 28 from dual union all
+select 'GRILL', sysdate - 1, f_menu_id('frytki'), 10 from dual union all
+select 'K_CIE', sysdate - 1, f_menu_id('krewetki w winie'), 12 from dual union all
+select 'K_CIE', sysdate - 1, f_menu_id('spaghetti carbonara'), 25 from dual union all
+select 'K_ZIM', sysdate - 1, f_menu_id('sałata cezar'), 22 from dual union all
+select 'K_ZIM', sysdate - 1, f_menu_id('sałata łosoś'), 15 from dual union all
+select 'PIZZA', sysdate - 1, f_menu_id('pizza margarita'), 26 from dual union all
+select 'PIZZA', sysdate - 1, f_menu_id('pizza salami'), 18 from dual union all
+select 'GRILL', sysdate - 2, f_menu_id('stek'), 10 from dual union all
+select 'GRILL', sysdate - 2, f_menu_id('burger'), 21 from dual union all
+select 'GRILL', sysdate - 2, f_menu_id('frytki'), 9 from dual union all
+select 'K_CIE', sysdate - 2, f_menu_id('krewetki w winie'), 11 from dual union all
+select 'K_CIE', sysdate - 2, f_menu_id('spaghetti carbonara'), 18 from dual union all
+select 'K_ZIM', sysdate - 2, f_menu_id('sałata cezar'), 25 from dual union all
+select 'K_ZIM', sysdate - 2, f_menu_id('sałata łosoś'), 28 from dual union all
+select 'PIZZA', sysdate - 2, f_menu_id('pizza margarita'), 22 from dual union all
+select 'PIZZA', sysdate - 2, f_menu_id('pizza salami'), 15 from dual union all
+select 'GRILL', sysdate - 3, f_menu_id('stek'), 11 from dual union all
+select 'GRILL', sysdate - 3, f_menu_id('burger'), 23 from dual union all
+select 'GRILL', sysdate - 3, f_menu_id('frytki'), 11 from dual union all
+select 'K_CIE', sysdate - 3, f_menu_id('krewetki w winie'), 12 from dual union all
+select 'K_CIE', sysdate - 3, f_menu_id('spaghetti carbonara'), 25 from dual union all
+select 'K_ZIM', sysdate - 3, f_menu_id('sałata cezar'), 27 from dual union all
+select 'K_ZIM', sysdate - 3, f_menu_id('sałata łosoś'), 16 from dual union all
+select 'PIZZA', sysdate - 3, f_menu_id('pizza margarita'), 19 from dual union all
+select 'PIZZA', sysdate - 3, f_menu_id('pizza salami'), 23 from dual union all
+select 'GRILL', sysdate - 4, f_menu_id('stek'), 22 from dual union all
+select 'GRILL', sysdate - 4, f_menu_id('burger'), 35 from dual union all
+select 'GRILL', sysdate - 4, f_menu_id('frytki'), 15 from dual union all
+select 'K_CIE', sysdate - 4, f_menu_id('krewetki w winie'), 8 from dual union all
+select 'K_CIE', sysdate - 4, f_menu_id('spaghetti carbonara'), 25 from dual union all
+select 'K_ZIM', sysdate - 4, f_menu_id('sałata cezar'), 30 from dual union all
+select 'K_ZIM', sysdate - 4, f_menu_id('sałata łosoś'), 15 from dual union all
+select 'PIZZA', sysdate - 4, f_menu_id('pizza margarita'), 25 from dual union all
+select 'PIZZA', sysdate - 4, f_menu_id('pizza salami'), 15 from dual union all
+select 'GRILL', sysdate - 5, f_menu_id('stek'), 12 from dual union all
+select 'GRILL', sysdate - 5, f_menu_id('burger'), 23 from dual union all
+select 'GRILL', sysdate - 5, f_menu_id('frytki'), 8 from dual union all
+select 'K_CIE', sysdate - 5, f_menu_id('krewetki w winie'), 11 from dual union all
+select 'K_CIE', sysdate - 5, f_menu_id('spaghetti carbonara'), 14 from dual union all
+select 'K_ZIM', sysdate - 5, f_menu_id('sałata cezar'), 14 from dual union all
+select 'K_ZIM', sysdate - 5, f_menu_id('sałata łosoś'), 16 from dual union all
+select 'PIZZA', sysdate - 5, f_menu_id('pizza margarita'), 24 from dual union all
+select 'PIZZA', sysdate - 5, f_menu_id('pizza salami'), 16 from dual union all
+select 'GRILL', sysdate - 6, f_menu_id('stek'), 21 from dual union all
+select 'GRILL', sysdate - 6, f_menu_id('burger'), 34 from dual union all
+select 'GRILL', sysdate - 6, f_menu_id('frytki'), 21 from dual union all
+select 'K_CIE', sysdate - 6, f_menu_id('krewetki w winie'), 12 from dual union all
+select 'K_CIE', sysdate - 6, f_menu_id('spaghetti carbonara'), 16 from dual union all
+select 'K_ZIM', sysdate - 6, f_menu_id('sałata cezar'), 14 from dual union all
+select 'K_ZIM', sysdate - 6, f_menu_id('sałata łosoś'), 23 from dual union all
+select 'PIZZA', sysdate - 6, f_menu_id('pizza margarita'), 26 from dual union all
+select 'PIZZA', sysdate - 6, f_menu_id('pizza salami'), 18 from dual;
+end;
+
+execute test_insert;
