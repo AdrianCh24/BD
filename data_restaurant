@@ -153,7 +153,7 @@ begin
                     'bagietka', 0.5, 'szt',
                     'kurczak', 100, 'g');
   wstaw.receptura('sałata łosoś',
-                    'sałata', 0.5, 'g',
+                    'sałata', 0.5, 'szt',
                     'pomidorki cherry', 100, 'g',
                     'oliwa', 50, 'ml',
                     'bagietka', 0.5, 'szt',
