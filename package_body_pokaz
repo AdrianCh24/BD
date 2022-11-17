@@ -145,4 +145,94 @@ is
     v_suma := v_suma *3.35 * v_vat;
     tekst('Cena '||in_dish||' powinna wynosić '||round(v_suma));
   end wartosc;
+  
+--procedura pokazująca szacunkowe zejście towaru i dań z niego wyprodukowanych na podstawie średniej z 7 dni pomnożonej przez 2
+  procedure zejscie_dan
+  is
+    type rt_type is record (p_name varchar2(50),
+                            quan number,
+                            unit varchar2(3));
+    type kol_nt is table of rt_type;
+    nt_prod kol_nt := kol_nt();
+  
+    type rt_type_2 is record (d_name varchar2(50),
+                              quan number);
+    type kol_nt_2 is table of rt_type_2;
+    nt_dish kol_nt_2 := kol_nt_2();
+  begin
+    select p.product_name, round(sum(w.quantity * r.quantity)/7), r.unit_code
+    bulk collect into nt_prod
+    from workplace_production w
+    join recipes r on w.menu_id = r.menu_id
+    join products p on r.product_id = p.product_id
+    where w.date_work >  sysdate - 7
+    group by p.product_name, r.unit_code;
+  
+    select m.dish_name, round(sum(w.quantity)/3.5)
+    bulk collect into nt_dish
+    from workplace_production w
+    join menu m on w.menu_id = m.menu_id
+    where date_work > sysdate - 7
+    group by m.dish_name;
+  
+    tekst('Na dzisiejszy dzień powinieneś mieć towar w ilości:');
+  
+    for i in nt_prod.first..nt_prod.last
+    loop
+      if nt_prod(i).quan * 2 > 1000 then
+        nt_prod(i).quan := nt_prod(i).quan/1000;
+          if nt_prod(i).unit in ('g') then
+            nt_prod(i).unit := 'kg';
+          elsif nt_prod(i).unit in ('ml') then
+            nt_prod(i).unit := 'l';
+          end if;
+      end if;
+    
+      tekst(nt_prod(i).p_name||' '||nt_prod(i).quan * 2||nt_prod(i).unit);
+    end loop;
+  
+    tekst(' ');
+    tekst('Przygotuj się na wydanie dań w ilości');
+  
+    for i in nt_dish.first..nt_dish.last
+    loop
+      tekst(nt_dish(i).d_name||' '||nt_dish(i).quan||'szt.');
+    end loop;
+  end zejscie_dan;
+  
+--procedura pokazująca listę brakującego towaru który jest wyliczany na podstawie średniego zejścia przez ostatnie 7 dni i pomnożonego przez 3,5 w celu zagwarantowania zapasu
+  procedure lista_zakupow
+  is
+    type rt_type is record (p_name varchar2(50),
+                            quan number,
+                            unit varchar2(3));
+    type kol_nt is table of rt_type;
+   nt_prod kol_nt := kol_nt();
+  begin
+    select p.product_name, w.quantity - sum(wp.quantity * r.quantity)/2, r.unit_code
+    bulk collect into nt_prod
+    from workplace_production wp
+    join recipes r on wp.menu_id = r.menu_id
+    join products p on r.product_id = p.product_id
+    join warehouse w on r.product_id = w.product_id
+    where wp.date_work >  sysdate - 7
+    group by p.product_name, w.quantity, r.unit_code;
+  
+    tekst('Zamów na jutro towar:');
+    for i in nt_prod.first..nt_prod.last
+    loop
+      if nt_prod(i).quan < 0 then
+        if nt_prod(i).quan < -1000 then
+          nt_prod(i).quan := nt_prod(i).quan / 1000;
+        end if;
+          if nt_prod(i).unit in ('g') then
+            nt_prod(i).unit := 'kg';
+          elsif nt_prod(i).unit in ('ml') then
+            nt_prod(i).unit := 'l';
+          end if;
+        tekst(nt_prod(i).p_name||' '||abs(nt_prod(i).quan)||nt_prod(i).unit);
+      end if;
+    end loop;
+  end lista_zakupow;
+  
 end;
