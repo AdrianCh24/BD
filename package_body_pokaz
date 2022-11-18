@@ -11,6 +11,7 @@ is
     tekst('-wartość adekwatna dania pokaz.wartosc(nazwa dania)');
     tekst('-przewidywane zejście dań pokaz.zejscie_dan');
     tekst('-listę zakupów pokaz.lista_zakupow');
+    tekst('-utarg z podanej ilości dni pokaz.utarg(ilość dni)');
   end pomoc;
   
   procedure receptura (in_dish varchar2)
