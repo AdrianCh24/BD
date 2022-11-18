@@ -16,7 +16,7 @@ begin
     values (:new.product_id, 0, :new.unit_code);
   end if;
 end;
-
+/
 --trigger aktualizujący tabele warehouse jeśli dodamy dostawę
 create or replace trigger ai_delivery_trg
 after insert on delivery
@@ -38,7 +38,7 @@ begin
   tekst('=============================');
   tekst('magazyn został zaktualizowany');
 end;
-
+/
 --trigger aktualizujący tabele warehouse jeśli dodamy zamówienie wykorzystuje procedure z paczki trg_a_job
 create or replace trigger ai_s_orders_trg
 after insert on orders
