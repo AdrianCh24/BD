@@ -43,7 +43,7 @@ insert into units (unit_code, unit_name)
 values ('szt', 'sztuki');
 
 --wstawione dane wykorzystują paczkę wstaw
-
+/
 begin
   wstaw.pracownik('Adrian', 'Chyliński', 91112409717, 'menadzer', 10000);
   wstaw.pracownik('Lukasz', 'Wójcik', 87376937291, 'menadzer', 8000, 'Adrian', 'Chyliński');
@@ -64,7 +64,7 @@ begin
   wstaw.pracownik('Iwona', 'Szpak', 89649387643, 'menadzer', 6000, 'Adrian', 'Chyliński');
   wstaw.pracownik('Maciek', 'Nowak', 92847389081, 'marketing', 4500, 'Iwona', 'Szpak');
 end;
-
+/
 begin
   wstaw.kucharz_stanowisko('Sebastian', 'Mały', 'grill');
   wstaw.kucharz_stanowisko('Jarek', 'Mak', 'kuchnia ciepła');
@@ -72,7 +72,7 @@ begin
   wstaw.kucharz_stanowisko('Magda', 'Skok', 'pizza');
   wstaw.kucharz_stanowisko('Tomek', 'Słoń', 'produkcja');
 end;
-
+/
 begin
   wstaw.dostawca ('makro', '643 893 948', '63 8494 9484 9474 4738 9447 9390');
   wstaw.dostawca ('napoje', '648 947 038', '37 4848 4849 2373 9459 3847 2938');
@@ -81,7 +81,7 @@ begin
   wstaw.dostawca ('pieczywo', '837 927 938', '83 0937 9837 9275 9272 8192 9286');
   wstaw.dostawca ('makarony', '387 937 927', '72 9376 9276 2726 9373 9202 2927');
 end;
-
+/
 begin
   wstaw.pozycja_menu('frytki', 6, 8);
   wstaw.pozycja_menu('sałata cezar', 25, 8);
@@ -97,7 +97,7 @@ begin
   wstaw.pozycja_menu('burger', 30, 8);
   wstaw.pozycja_menu('piwo', 10, 23);
 end;
-
+/
 declare
   type typ_nt is table of varchar2(30);
   kol_nt typ_nt := typ_nt(  'frytki',
@@ -138,7 +138,7 @@ begin
     wstaw.produkt(kol_nt(i));
   end loop;
 end;
-
+/
 begin
   wstaw.receptura('piwo',
                     'piwo', 500, 'ml');
@@ -205,7 +205,7 @@ begin
                     'ser gouda', 20, 'g',
                     'boczek', 50, 'g');
 end;
-
+/
 begin
   wstaw.menu_stanowisko('frytki', 'grill');
   wstaw.menu_stanowisko('stek', 'grill');
@@ -217,7 +217,7 @@ begin
   wstaw.menu_stanowisko('krewetki w winie', 'kuchnia ciepła');
   wstaw.menu_stanowisko('spaghetti carbonara', 'kuchnia ciepła');
 end;
-
+/
 begin
   wstaw.dostawa('napoje', '14/11/22/01',
                 'cola', 20, 'l', 60, 23,
@@ -264,7 +264,7 @@ begin
                 'ser gouda', 10, 'kg', 300, 8,
                 'ser mozzarella', 20, 'kg', 600, 8);
 end;
-
+/
 begin
   wstaw.zamowienie(0, 'Mirek', 'Bak',
                     'sałata cezar', 1,
@@ -293,7 +293,7 @@ begin
                     'burger', 2,
                     'piwo', 2);
 end;
-
+/
 --inserty niezbędne do przeprowadzenia testów
 insert into workplace_production (workplace_code, date_work, menu_id, quantity)
 select 'GRILL', sysdate, f_menu_id('stek'), 20 from dual union all
