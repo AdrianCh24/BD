@@ -1,0 +1,62 @@
+--program do joba wykorzystujący procedure production z paczki trg_a_job
+begin
+  dbms_scheduler.create_program(
+    Program_name => 'produkcja_kuchni',
+    Program_type => 'plsql_block',
+    Program_action => 'begin trg_a_job.production; end;',
+    Enabled => true,
+    Comments => 'podliczenie wszystkich dań wydanych przez kuchnie');
+end;
+/
+
+--harmonogram włańczający się 15min po zamknięciu kuchni 
+begin
+  dbms_scheduler.create_schedule(
+    Schedule_name => 'zamkniecie_kuchni',
+    Start_date => systimestamp,
+    Repeat_interval => 'freq=daily; byhour=23; byminute=15; bysecond=0;',
+    End_date => null,
+    Comments => 'harmonogram uruchamia się po zamknięciu kuchni');
+end;
+/
+
+--job mający na celu podliczenie wszystkich dań z kuchni
+begin
+  dbms_scheduler.create_job(
+    Job_name => 'podliczenie_dan',
+    Program_name => 'produkcja_kuchni',
+    Schedule_name => 'zamkniecie_kuchni',
+    enabled => true);
+end;
+/
+
+--program do joba wykorzystujący procedure waiter_profit z paczki trg_a_job
+begin
+  dbms_scheduler.create_program(
+    Program_name => 'utarg_dzienny',
+    Program_type => 'plsql_block',
+    Program_action => 'begin trg_a_job.waiter_profit; end;',
+    Enabled => true,
+    Comments => 'podliczenie wszystkich kelnerów');
+end;
+/
+
+--harmonogram włańczający się 15min po zamknięciu sali i podliczający wszystkich kelnerów
+begin
+  dbms_scheduler.create_schedule(
+    Schedule_name => 'zamkniecie_sali',
+    Start_date => systimestamp,
+    Repeat_interval => 'freq=daily; byhour=23; byminute=45; bysecond=0;',
+    End_date => null,
+    Comments => 'harmonogram uruchamia się po zamknięciu sali');
+end;
+/
+
+--job mający na celu podliczenie utargu kelnerów
+begin
+  dbms_scheduler.create_job(
+    Job_name => 'podliczenie_kelnerow',
+    Program_name => 'utarg_dzienny',
+    Schedule_name => 'zamkniecie_sali',
+    enabled => true);
+end;
