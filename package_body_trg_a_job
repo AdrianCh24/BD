@@ -48,7 +48,8 @@ is
       values (nt_profit(i).emp_id, sysdate, nt_profit(i).profit);
     end loop;
     tekst('Podliczono utarg kelnerów i zapisano go do tabeli');
-    --delete from orders;
+    
+    delete from orders;
   end waiter_profit;
   
 --procedura mająca podliczyć sumę dań wydanych przez każde ze stanowisk kucharzy wykorzystywana przez joba uruchamiającego się po zamknięciu kuchni
