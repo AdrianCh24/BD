@@ -1,0 +1,8 @@
+--specyfikacja dla paczki trg_a_job
+
+create or replace package trg_a_job
+is
+  procedure orders;
+  procedure production;
+  procedure waiter_profit;
+end;
