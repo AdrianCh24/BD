@@ -237,4 +237,23 @@ is
     end loop;
   end lista_zakupow;
   
+--procedura mająca pokazać utarg w ciągu wybranej ilości dni
+  procedure utarg(in_ile_dni number)
+  is
+    v_profit number;
+    v_czas varchar2(30);
+  begin
+    if in_ile_dni = 1 then
+      v_czas := 'dzisiejszego dnia';
+    elsif in_ile_dni > 1 then
+      v_czas := 'ostatnich '||in_ile_dni||' dni';
+    end if;
+
+    select sum(profit)
+    into v_profit
+    from waiters
+    where date_work > sysdate - in_ile_dni;
+  
+    tekst('Utarg z '||v_czas||' to '||v_profit||'zł');
+  end utarg;
 end;
