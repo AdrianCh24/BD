@@ -327,13 +327,14 @@ is
     select count(employee_id)
     into v_emp_count
     from employees
-    where first_name = in_first and last_name = in_last;
+    where first_name = in_man_f and last_name = in_man_l;
     
     if v_man_code not in ('MENAG') then
       raise_application_error(-20001, 'Pracownik '||in_man_f||' '||in_man_l||' nie jest menagerem nie może być przypisany jako przełożony');
     end if;
     
-    if v_emp_count = 0 and in_man_f is not null or in_man_l is not null then
+    if in_man_f is null and in_man_l is null then null;
+    elsif v_emp_count = 0 then
       raise_application_error(-20002, 'Przełożony '||in_man_f||' '||in_man_l||' nie istnieje');
     end if;
   
