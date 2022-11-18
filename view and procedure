@@ -4,7 +4,7 @@ is
 begin
   dbms_output.put_line(in_tekst);
 end;
-
+/
 --widok ułatwiający czytanie receptur dań
 create or replace view recipes_v as
 select m.dish_name, p.product_name, r.quantity, r.unit_code
