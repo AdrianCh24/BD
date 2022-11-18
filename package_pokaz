@@ -1,0 +1,13 @@
+--specyfikacja dla paczki pokaz
+
+create or replace package pokaz
+is
+  procedure pomoc;
+  procedure receptura (in_dish varchar2);
+  procedure magazyn;
+  procedure koszt (in_dish varchar2);
+  procedure wartosc (in_dish varchar2);
+  procedure zejscie_dan;
+  procedure lista_zakupow;
+  procedure utarg(in_ile_dni number);
+end;
