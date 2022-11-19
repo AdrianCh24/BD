@@ -227,12 +227,12 @@ is
       if nt_prod(i).quan < 0 then
         if nt_prod(i).quan < -1000 then
           nt_prod(i).quan := nt_prod(i).quan / 1000;
-        end if;
           if nt_prod(i).unit in ('g') then
             nt_prod(i).unit := 'kg';
           elsif nt_prod(i).unit in ('ml') then
             nt_prod(i).unit := 'l';
           end if;
+        end if;
         tekst(nt_prod(i).p_name||' '||abs(nt_prod(i).quan)||nt_prod(i).unit);
       end if;
     end loop;
