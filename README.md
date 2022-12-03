@@ -47,7 +47,7 @@ Pobierz `SQL Developer` ze strony producenta Oracle.
 * Tabele z relacjami i constraint-ami zostały zaprojektowane w narzędziu `Data Modeler`. 
 * Przy pomocy tego narzędzia wygenerowałem gotowy model fizyczny gotowy do zaimplementowania w `SQL Developer`.
 * Ze swojej strony dla odpowiednich kluczy głównych nadałem generator id. Dzięki czemu to baza banych sama będzie generować nowe id oszczędzając nam pracy.
-* Gotowy plik z kodem tworzącym tabele jest pod nazwą `restaurant_ddl`.
+* Gotowy plik z kodem tworzącym tabele jest pod nazwą **restaurant_ddl**.
 
 ### Cel bazy danych 
 
