@@ -31,10 +31,11 @@ Pobierz `SQL Developer` ze strony producenta Oracle.
 
 ### Łączenie z bazą danych 
 
-Stwórz urzytkownika `restaurant` i nadaj mu uprawnienia. Aby to zrobić uruchom skrypt z plikiem `create_user` będąc zalogowanym na urzytkownika `system`. 
-Możesz też skopiować zawartość pliku do `SQL Developer`.
-
-Dodaj nowe połączenie w `SQL Developer`. Dla okiena `Username` wpisz 'restaurant' a dla okna `Password` '123'. 
-`Connection Type` powinien być ustawiony na wrtość 'TNS' a `Network Alias` na odpowiendni kontener domyślnie 'XEPDB1'.
-Naciśnij okno `Test` jeśli zobaczysz komunikat 'Status: Sukces' połączenie jest prawidłowo skonfigurowane.
-Zapisz połączenie. Możesz od tej pory zalogować się na urzytkownika 'restaurant'.
+* Stwórz urzytkownika `restaurant` i nadaj mu uprawnienia. 
+* Aby to zrobić uruchom skrypt z plikiem `create_user` będąc zalogowanym na urzytkownika `system`. 
+* Możesz też skopiować zawartość pliku do `SQL Developer`.
+* Dodaj nowe połączenie w `SQL Developer`. 
+* Dla okiena `Username` wpisz 'restaurant' a dla okna `Password` '123'. 
+* `Connection Type` powinien być ustawiony na wrtość 'TNS' a `Network Alias` na odpowiendni kontener domyślnie 'XEPDB1'.
+* Naciśnij okno `Test` jeśli zobaczysz komunikat 'Status: Sukces' połączenie jest prawidłowo skonfigurowane.
+* Zapisz połączenie. Możesz od tej pory zalogować się na urzytkownika 'restaurant'.
