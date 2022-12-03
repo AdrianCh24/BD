@@ -73,4 +73,30 @@ Paczka **pokaz** ma za zadanie czerpanie korzyści z posiadania bazy danych:
 * **lista_zakupow** ma pokazać liste produktów jaka powinna zastać zamówiona na podstawie aktualnego stanu magazynowego i średniej z sprzedaży z odpowienio dużym zapasam towaru (x3,5)
 * **utarg** utarg restauracji z wstazanej ilości dni 
 
+### Implementacja programów
 
+Aby w odpowiedniej kolejności zainplementować programy do bazy danych załaduj skrypty w odpowiedniej kolejmości:
+
+1. `restaurant_ddl`
+2. `view and procedure`
+3. `package_wstaw`
+4. `package_body_wstaw`
+5. `package_pokaz`
+6. `package_body_pokaz`
+7. `package_trg_a_job`
+8. `package_body_trg_a_job`
+9. `triggers`
+10. `job`
+
+### Wczytanie danych do bazy
+
+Przygotowałem dane które wypełniają tabele i pozwalają przeprowadzić testy programów. Przygotowane dane wykorzystują paczkę **wstaw** więc jest ona niezbędna do załadowania danych.
+Aby załadować dane do bazy wykonaj skrypt **data_restaurant**
+
+## Problemy 
+
+Jeśli wykryjesz jakieś problemy w działaniu programów daj znać.
+
+## Kontakt
+
+Adrian Chyliński
