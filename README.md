@@ -24,8 +24,8 @@ Jest to projekt transakcyjnej bazy danych dla restauracji.
 Cel projektu:
 
 1. Nauka projektowania bazy danych
-2. Nauka programowania bazy dabych Oracle za pomocą języka PL/SQL
-3. Projekt ma pomódz mi w znalezieniu pracy jako młodszy programista
+2. Nauka programowania bazy danych Oracle za pomocą języka PL/SQL
+3. Projekt ma mi pomódz w znalezieniu pracy jako młodszy programista
 
 ## Zbudowany z
 
@@ -52,9 +52,9 @@ Pobierz `SQL Developer` ze strony producenta Oracle.
 * Aby to zrobić uruchom skrypt z plikiem `create_user` będąc zalogowanym na urzytkownika `system`. 
 * Możesz też skopiować zawartość pliku do `SQL Developer`.
 * Dodaj nowe połączenie w `SQL Developer`. 
-* Dla okiena `Username` wpisz **restaurant** a dla okna `Password` **123**. 
-* `Connection Type` powinien być ustawiony na wrtość **TNS** a `Network Alias` na odpowiendni kontener domyślnie **XEPDB1**.
-* Naciśnij okno `Test` jeśli zobaczysz komunikat **Status: Sukces** połączenie jest prawidłowo skonfigurowane.
+* Dla okna `Username` wpisz **restaurant** a dla okna `Password` **123**. 
+* `Connection Type` powinien być ustawiony na wrtość **TNS** a `Network Alias` na odpowiedni kontener domyślnie **XEPDB1**.
+* Naciśnij okno `Test`, jeśli zobaczysz komunikat **Status: Sukces** połączenie jest prawidłowo skonfigurowane.
 * Zapisz połączenie. Możesz od tej pory zalogować się na urzytkownika **restaurant**.
 
 ## Jak korzystać z tej bazy danych
@@ -62,13 +62,13 @@ Pobierz `SQL Developer` ze strony producenta Oracle.
 ### Projektowanie tabel w bazie danych 
 
 * Tabele z relacjami i constraint-ami zostały zaprojektowane w narzędziu `Data Modeler`. 
-* Przy pomocy tego narzędzia wygenerowałem gotowy model fizyczny gotowy do zaimplementowania w `SQL Developer`.
-* Ze swojej strony dla odpowiednich kluczy głównych nadałem generator id. Dzięki czemu to baza banych sama będzie generować nowe id oszczędzając nam pracy.
+* Przy pomocy tego narzędzia wygenerowałem model fizyczny gotowy do zaimplementowania w `SQL Developer`.
+* Ze swojej strony dla odpowiednich kluczy głównych nadałem generator id. Dzięki czemu to baza danych sama będzie generować nowe id oszczędzając nam pracy.
 * Gotowy plik z kodem tworzącym tabele jest pod nazwą **restaurant_ddl**.
 
 ### Cel bazy danych 
 
-Baza danych ma na swoim celu ułatwić zarządzanie danymi w restauracji i czerpać z nich korzyści. W tym celu stworzyłem dwie paczki z programami które krótko zaprezentuje.
+Baza danych ma na celu ułatwić zarządzanie danymi w restauracji i czerpać z nich korzyści. W tym celu stworzyłem dwie paczki z programami które krótko zaprezentuje.
 
 Paczka **wstaw** ma ułatwić wprowadzanie danych do bazy:
 
@@ -86,9 +86,9 @@ Paczka **pokaz** ma za zadanie czerpanie korzyści z posiadania bazy danych:
 * **magazym** ma pokazać aktualny stan magazynowy
 * **koszt** ma pokazać koszt wyprodukowania wybranej przez nas pozycji z menu na podstawie średniej wartości produktów dostarczanych przez dostawców
 * **wartość** ma pokazać jaka powinna być cena wybranej przez nas pozycji z menu uwzględniając koszt produkcji i podatek vat
-* **zejscie_dan** ma pokazać szacowaną ilość produktów i dań jaka może zostać sprzedana danego dnia ma podstawie średniej z sprzedaży z ostatnich 7 dni i uwzględnieniu odpowienio dużego zapasu (x2)
-* **lista_zakupow** ma pokazać liste produktów jaka powinna zastać zamówiona na podstawie aktualnego stanu magazynowego i średniej z sprzedaży z odpowienio dużym zapasam towaru (x3,5)
-* **utarg** utarg restauracji z wstazanej ilości dni 
+* **zejscie_dan** ma pokazać szacowaną ilość produktów i dań jaka może zostać sprzedana danego dnia na podstawie średniej ze sprzedaży z ostatnich 7 dni i uwzględnieniu odpowienio dużego zapasu (x2)
+* **lista_zakupow** ma pokazać liste produktów jaka powinna zastać zamówiona na podstawie aktualnego stanu magazynowego i średniej ze sprzedaży z odpowienio dużym zapasam towaru (x3,5)
+* **utarg** utarg restauracji ze wstazanej ilości dni 
 
 ### Implementacja programów
 
@@ -117,3 +117,5 @@ Jeśli wykryjesz jakieś problemy w działaniu programów daj znać.
 ## Kontakt
 
 Adrian Chyliński
+e-mail: adrianchylinski.waw@gmail.com
+Link do projektu: https://github.com/AdrianCh24/BD
