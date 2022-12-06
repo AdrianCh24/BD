@@ -1,5 +1,22 @@
 # BD RESTAURANT
 
+---
+
+## Spis treści
+1. [O projekcie](https://github.com/AdrianCh24/BD#o-projekcie)
+2. [Zbudowany z](https://github.com/AdrianCh24/BD#zbudowany-z)
+  * [Narzędzia](https://github.com/AdrianCh24/BD#narz%C4%99dzia)
+3. [Pierwsze kroki](https://github.com/AdrianCh24/BD#pierwsze-kroki)
+  * [Wymagania wstępne](https://github.com/AdrianCh24/BD#wymagania-wst%C4%99pne)
+  * [Łączenie z bazą danych](https://github.com/AdrianCh24/BD#%C5%82%C4%85czenie-z-baz%C4%85-danych)
+4. [Jak kożystać z tej bazy danych](https://github.com/AdrianCh24/BD#jak-korzysta%C4%87-z-tej-bazy-danych)
+  * [Projektowanie tabel w bazie danych](https://github.com/AdrianCh24/BD#projektowanie-tabel-w-bazie-danych)
+  * [Cel bazy danych](https://github.com/AdrianCh24/BD#cel-bazy-danych)
+  * [Implementacja programów](https://github.com/AdrianCh24/BD#implementacja-program%C3%B3w)
+  * [Wczytanie danych do bazy](https://github.com/AdrianCh24/BD#wczytanie-danych-do-bazy)
+5. [Problemy](https://github.com/AdrianCh24/BD#problemy)
+6. [Kontakt](https://github.com/AdrianCh24/BD#kontakt)
+
 ## O projekcie 
 
 Jest to projekt transakcyjnej bazy danych dla restauracji.
