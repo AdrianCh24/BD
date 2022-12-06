@@ -117,5 +117,8 @@ Jeśli wykryjesz jakieś problemy w działaniu programów daj znać.
 ## Kontakt
 
 Adrian Chyliński
+
 e-mail: adrianchylinski.waw@gmail.com
+
 Link do projektu: https://github.com/AdrianCh24/BD
+
