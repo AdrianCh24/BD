@@ -33,7 +33,7 @@ Technologia Oracle jest używana do projektowania, wypełniania i wdrażania gł
 
 ### Narzędzia:
 
-* `Autonomous Database` `ver.18c`
+* `Oracle Database 18c`
 * `PL/SQL`
 * `SQL`
 * `Data Modeler`
@@ -83,7 +83,7 @@ Paczka **wstaw** ma ułatwić wprowadzanie danych do bazy:
 Paczka **pokaz** ma za zadanie czerpanie korzyści z posiadania bazy danych:
 
 * **receptura** ma pokazać recepture na wybraną przez nas pozycje z menu
-* **magazym** ma pokazać aktualny stan magazynowy
+* **magazyn** ma pokazać aktualny stan magazynowy
 * **koszt** ma pokazać koszt wyprodukowania wybranej przez nas pozycji z menu na podstawie średniej wartości produktów dostarczanych przez dostawców
 * **wartość** ma pokazać jaka powinna być cena wybranej przez nas pozycji z menu uwzględniając koszt produkcji i podatek vat
 * **zejscie_dan** ma pokazać szacowaną ilość produktów i dań jaka może zostać sprzedana danego dnia na podstawie średniej ze sprzedaży z ostatnich 7 dni i uwzględnieniu odpowienio dużego zapasu (x2)
